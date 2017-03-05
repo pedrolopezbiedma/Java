@@ -31,4 +31,11 @@ public class Prize {
     public int getLevel(){
         return this.level;
     }             // Retrieve level attribute
+    @Override
+    public String toString(){
+        String status;
+        status = "Treasures: " + Integer.toString(this.treasures) 
+                + " & Levels: " + Integer.toString(this.level);
+        return status;
+    } // Retrive object status
 }

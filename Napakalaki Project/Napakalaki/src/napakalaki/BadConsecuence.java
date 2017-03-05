@@ -72,5 +72,13 @@ public class BadConsecuence {
         return this.nHiddenTreasures;
     }                           // getHidTreasures
     
-    
+    @Override
+    public String toString(){
+        String status;
+        status = "Text: " + this.text 
+                + " ,Levels: " + Integer.toString(this.levels) 
+                + " ,Visible Treasures: " + Integer.toString(this.nVisibleTreasures) +
+                " and Hidden Treasures: " + Integer.toString(this.nHiddenTreasures);
+        return status;
+    } // Retrieve object status
 }

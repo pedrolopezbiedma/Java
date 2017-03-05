@@ -37,5 +37,15 @@ public class Monster {
         return this.combatLevel;
     } // getCombatLvl
     
+    @Override
+    public String toString(){
+        String status;
+        status = "Name: " + this.name 
+                + " ,Combat Level: " + Integer.toString(this.combatLevel)
+                + " ,Prize: " + this.prize.toString() 
+                + " and Bad Consec: " + this.badConsec.toString();
+        return status;
+    } // Retrieve object status
+    
 }
     
