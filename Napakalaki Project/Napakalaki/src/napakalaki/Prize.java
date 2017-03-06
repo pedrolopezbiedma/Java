@@ -15,21 +15,21 @@ public class Prize {
     private int level;
     
     // Methods
-    public Prize(int t, int l){
+    Prize(int t, int l){
         this.treasures = t;
         this.level = l;
-    }        // Constructor
-    public int getTreasures(){
+    }                                           // Parameter Constructor
+    protected int getTreasures(){
         return this.treasures;
-    }         // Retrieve treasure attribute
-    public int getLevel(){
+    }                                  // Retrieve treasure attribute
+    protected int getLevel(){
         return this.level;
-    }             // Retrieve level attribute
+    }                                      // Retrieve level attribute
     @Override
     public String toString(){
         String status;
         status = "Treasures: " + Integer.toString(this.treasures) 
                 + " & Levels: " + Integer.toString(this.level);
         return status;
-    } // Retrive object status
+    }                                      // Retrive object status
 }

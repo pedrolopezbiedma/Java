@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author PedroL
  */
 public class BadConsecuence {
-    
     // Class attributes.
+    public static final int MAXTREASURES = 10;
     private String text;
     private int levels;
     private int nVisibleTreasures;
@@ -28,7 +28,7 @@ public class BadConsecuence {
         this.nHiddenTreasures = nHid;
         this.specificVisibleTreasures = null; 
         this.specificHiddenTreasures = null;
-    }    // Parameter Constructor
+    }           // Parameter Constructor
     BadConsecuence(String t, int l, ArrayList<TreasureKind> visTreasures, 
             ArrayList<TreasureKind> hidTreasures){
         this.text = t;
@@ -37,35 +37,59 @@ public class BadConsecuence {
         this.nHiddenTreasures = hidTreasures.size();
         this.specificVisibleTreasures = visTreasures;
         this.specificHiddenTreasures = hidTreasures;
-    }          // Parameter Constructor with specific treasures
+    }                 // Parameter Constructor with specific treasures
     BadConsecuence(String t){
         this.text = t;
-        this.levels = 10;
-        this.nVisibleTreasures = 10;
-        this.nHiddenTreasures = 10;
+        this.levels = Player.MAXLEVEL;
+        this.nVisibleTreasures = MAXTREASURES;
+        this.nHiddenTreasures = MAXTREASURES;
         this.specificHiddenTreasures = null;
         this.specificVisibleTreasures = null; 
-    }                               // Parameter Constructor simulating death
-    public String getText(){
+    }                                      // Parameter Constructor simulating death
+    protected boolean isEmpty(){
+        boolean isEmpty;
+        
+        if(this.specificHiddenTreasures.isEmpty() &&
+           this.specificVisibleTreasures.isEmpty() &&
+           this.nHiddenTreasures == 0 &&
+           this.nVisibleTreasures == 0 ){
+            isEmpty = true;
+        } // This Badconsecuence does not make treasures to be lost.
+        else{
+            isEmpty = false;
+        }
+        return isEmpty;
+    }                                  // isEmpty 
+    protected String getText(){
         return this.text;
-    }                                // getText
-    public int getLevels(){
+    }                                    // getText
+    protected int getLevels(){
         return this.levels;
-    }                                 // getLevels
-    public int getVisTreasures(){
+    }                                     // getLevels
+    protected int getNVisTreasures(){
         return this.nVisibleTreasures;
-    }                           // getVisTreasures
-    public int getHidTreasures(){
+    }                              // getVisTreasures
+    protected int getNHidTreasures(){
         return this.nHiddenTreasures;
-    }                           // getHidTreasures
-    public ArrayList<TreasureKind> getSpecVisTreasures(){
+    }                              // getHidTreasures
+    protected ArrayList<TreasureKind> getSpecVisTreasures(){
+        return this.specificVisibleTreasures;
+    }       // getSpecVisTreasures
+    protected ArrayList<TreasureKind> getSpecHidTreasures(){
         return this.specificHiddenTreasures;
-    } // getSpecVisTreasures
-    
-    public ArrayList<TreasureKind> getSpecHidTreasures(){
-        return this.specificHiddenTreasures;
-    } // getSpecHidTreasures
-    
+    }       // getSpecHidTreasures
+    protected void substractVisTreasures(Treasure t){
+        
+    }              // substractVisTreasures ***** TO BE DEVELOPED *****
+    protected void substractHidTreasures(Treasure t){
+        
+    }              // substractHidTreasures ***** TO BE DEVELOPED *****
+    protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visTreasures, 
+            ArrayList<Treasure> hidTreasures){
+        BadConsecuence bc = new BadConsecuence("Text");
+        
+        return bc;
+    }                     // adjustToFitTreasureLists ***** TO BE DEVELOPED *****
     @Override // TODO Mostrar lista de tesoros.
     public String toString(){
         String status;
@@ -74,5 +98,5 @@ public class BadConsecuence {
                 + " ,Visible Treasures: " + Integer.toString(this.nVisibleTreasures) +
                 " and Hidden Treasures: " + Integer.toString(this.nHiddenTreasures);
         return status;
-    } // Retrieve object status
+    }                                      // Retrieve object status
 }

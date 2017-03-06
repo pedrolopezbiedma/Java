@@ -10,8 +10,7 @@ package napakalaki;
  * @author PedroL
  */
 public class Monster {
-    
-    // Class Attibutes
+    // Class Attributes
     private String name;
     private int combatLevel;
     private Prize prize;
@@ -23,26 +22,22 @@ public class Monster {
         this.combatLevel = lvl;
         this.badConsec = bc;
         this.prize = p;
-    } // Parameters Constructor
-
-    public String getName(){
+    }        // Parameters Constructor
+    protected String getName(){
         return this.name;
-    } // getName
-    public int getCombatLvl(){
+    }                                    // getName
+    protected int getCombatLvl(){
         return this.combatLevel;
-    } // getCombatLvl
-
-    public BadConsecuence getBadConsecuence(){
+    }                                  // getCombatLvl
+    protected BadConsecuence getBadConsecuence(){
         return this.badConsec;
-    }
-    
-    public int getLevelsGained(){
+    }                  // getBadConsuence
+    protected int getLevelsGained(){
         return this.prize.getLevel();
-    }
-    
-    public int getTreasuresGained(){
+    }                               // getLevelsGained
+    protected int getTreasuresGained(){
         return this.prize.getTreasures();
-    }
+    }                            // getTreasuresGained
     @Override
     public String toString(){
         String status;
@@ -51,7 +46,7 @@ public class Monster {
                 + " ,Prize: " + this.prize.toString() 
                 + " and Bad Consec: " + this.badConsec.toString();
         return status;
-    } // Retrieve object status
+    }                                      // Retrieve object status
     
 }
     
