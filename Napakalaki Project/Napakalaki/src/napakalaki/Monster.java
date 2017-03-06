@@ -24,19 +24,25 @@ public class Monster {
         this.badConsec = bc;
         this.prize = p;
     } // Parameters Constructor
-    public void setName(String n){
-        this.name = n;
-    } // setName
-    public void setCombatLvl(int lvl){
-        this.combatLevel = lvl;
-    } // setCombatLevel
+
     public String getName(){
         return this.name;
     } // getName
     public int getCombatLvl(){
         return this.combatLevel;
     } // getCombatLvl
+
+    public BadConsecuence getBadConsecuence(){
+        return this.badConsec;
+    }
     
+    public int getLevelsGained(){
+        return this.prize.getLevel();
+    }
+    
+    public int getTreasuresGained(){
+        return this.prize.getTreasures();
+    }
     @Override
     public String toString(){
         String status;

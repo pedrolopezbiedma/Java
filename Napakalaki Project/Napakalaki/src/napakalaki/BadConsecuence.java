@@ -46,19 +46,6 @@ public class BadConsecuence {
         this.specificHiddenTreasures = null;
         this.specificVisibleTreasures = null; 
     }                               // Parameter Constructor simulating death
-    
-    public void setText(String t){
-        this.text = t;
-    }                          // setText
-    public void setLevels(int l){
-        this.levels = l;
-    }                           // setLevels
-    public void setVisTreasures(int nVisT){
-        this.nVisibleTreasures = nVisT;
-    }                 // setVisTreasures
-    public void setHidTreasures(int nHidT){
-        this.nHiddenTreasures = nHidT;
-    }                 // setHidTreasures
     public String getText(){
         return this.text;
     }                                // getText
@@ -71,8 +58,15 @@ public class BadConsecuence {
     public int getHidTreasures(){
         return this.nHiddenTreasures;
     }                           // getHidTreasures
+    public ArrayList<TreasureKind> getSpecVisTreasures(){
+        return this.specificHiddenTreasures;
+    } // getSpecVisTreasures
     
-    @Override
+    public ArrayList<TreasureKind> getSpecHidTreasures(){
+        return this.specificHiddenTreasures;
+    } // getSpecHidTreasures
+    
+    @Override // TODO Mostrar lista de tesoros.
     public String toString(){
         String status;
         status = "Text: " + this.text 

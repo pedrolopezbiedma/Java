@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class PruebaNapakalaki {
 
-    public static ArrayList<Monster> readMonsters(){
+    private static ArrayList<Monster> readMonsters(){
         
         ArrayList<Monster> monsters = new ArrayList();
 
@@ -196,6 +196,41 @@ public class PruebaNapakalaki {
         
         return monsters;
     } // readMonsters
+    private static void bigCombatLevelMonsters(ArrayList<Monster> monsters){
+      for( int i = 0 ; i < monsters.size() ; i++){
+          if(monsters.get(i).getCombatLvl() > 10){
+              monsters.get(i).toString();
+          } // if
+      } // for 
+    } // bigCombatLevelMonsters
+    private static void justLevelLostMonsters(ArrayList<Monster> monsters){
+        for(int i = 0 ; i < monsters.size() ; i++){
+            if((monsters.get(i).getBadConsecuence().getLevels()!= 0)){
+                if(monsters.get(i).getBadConsecuence().getVisTreasures() == 0 && 
+                   monsters.get(i).getBadConsecuence().getHidTreasures() == 0){
+                     monsters.get(i).toString();
+                } // if
+            } // if
+        } // for
+    } // justLevelLostMonsters
+    private static void moreThanOneLevelPrizeMonsters(ArrayList<Monster> monsters){
+        for(int i = 0 ; i < monsters.size() ; i++){
+            if(monsters.get(i).getLevelsGained() > 1){
+                monsters.get(i).toString();
+            } // if
+        } // for
+    } // moreThanOneLevelPrizeMonsters
+    private static void specificTreasureLostMonsters(ArrayList<Monster> monsters, TreasureKind tr){
+        for(int i = 0; i < monsters.size() ;i++){
+            ArrayList<TreasureKind> visTreasureKind = monsters.get(i).getBadConsecuence().getSpecVisTreasures();
+            ArrayList<TreasureKind> hidTreasureKind = monsters.get(i).getBadConsecuence().getSpecHidTreasures();
+            
+            if(visTreasureKind.contains(tr) || hidTreasureKind.contains(tr)){
+                monsters.get(i).toString();
+            } // if
+        } // for
+    } // treasureLostMonsters
+    
     /**
      * @param args the command line arguments
      */
@@ -207,6 +242,18 @@ public class PruebaNapakalaki {
         
         // ********** Creating Monsters **********
         monsters = readMonsters();
+        
+        // ********** Reports **********
+        bigCombatLevelMonsters(monsters);
+        justLevelLostMonsters(monsters);
+        moreThanOneLevelPrizeMonsters(monsters);
+        
+        // TODO: Generalizar esto.
+        System.out.println("Elija que tipo de tesoro quiere comprobar: ");
+        specificTreasureLostMonsters(monsters, TreasureKind.HELMET );
+
+        
+        
 
         
     } // Main
