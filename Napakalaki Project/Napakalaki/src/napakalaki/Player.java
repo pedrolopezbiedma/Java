@@ -31,21 +31,37 @@ public class Player {
         return this.name;
     }                                    // getName
     private void bringToLife(){
-        
-    }                                    // bringToLife ***** TO BE DEVELOPED *****
+        this.dead = false;
+    }                                    // bringToLife
     private int getCombatLevel(){
-        int i;
-        return i;
-    }                                  // getCombatLevel ***** TO BE DEVELOPED *****
+        int totalCombatLevel = this.level;
+        for(int i = 0; i < this.visibleTreasures.size() ; i++){
+            if(this.visibleTreasures.get(i).getBonus() != 0){
+                totalCombatLevel = totalCombatLevel + this.visibleTreasures.get(i).getBonus();
+            } // if
+        } // for
+
+        for(int i = 0; i < this.hiddenTreasures.size() ; i++){
+            if(this.hiddenTreasures.get(i).getBonus() != 0){
+                totalCombatLevel = totalCombatLevel + this.hiddenTreasures.get(i).getBonus();
+            } // if
+        } // for    
+        
+        return totalCombatLevel;
+    }                                 // getCombatLevel
     private void incrementLevels(int i){
-        
-    }                           // incrementLevels ***** TO BE DEVELOPED *****
+      this.level = this.level + i;  
+    }                           // incrementLevels
     private void decrementLevels(int i){
-        
-    }                           // decrementLevels ***** TO BE DEVELOPED *****
+      this.level = this.level - i;
+      
+      if(this.level < 1){
+          this.level = 1;
+      } // if
+    }                           // decrementLevels
     private void setPendingBadConsecuence(BadConsecuence bc){
-        
-    }      // setPendingBadConsecuence ***** TO BE DEVELOPED *****
+      this.pendingBadConsecuence = bc;  
+    }      // setPendingBadConsecuence
     private void applyPrize(Monster m){
         
     }                            // applyPrize ***** TO BE DEVELOPED *****
@@ -57,16 +73,24 @@ public class Player {
         return isTrue;
     }            // canMakeTreasureVisible ***** TO BE DEVELOPED *****
     private int howManyVisibleTreasures(TreasureKind tr){
-        int i = 0;
-        return i;
-    }          // howManyVisibleTreasures ***** TO BE DEVELOPED *****
-    private void dieIfNoTreasures(){
+        int count = 0;
+        for(int i = 0 ; i < this.visibleTreasures.size() ; i++){
+            if(this.visibleTreasures.get(i).getType() == tr){
+              count = count + 1;  
+            } // if
+        } // for
         
-    }                               // dieIfNoTreasures ***** TO BE DEVELOPED *****
+        return count;
+    }         // howManyVisibleTreasures
+    private void dieIfNoTreasures(){
+      if(this.hiddenTreasures.isEmpty() &&
+         this.visibleTreasures.isEmpty()){
+          this.dead = true;
+      }  // if
+    }                               // dieIfNoTreasures
     protected boolean isDead(){
-        boolean isTrue = true;
-        return isTrue;
-    }                                    // isDead *****  TO BE DEVELOPED *****
+        return this.dead;
+    }                                    // isDead 
     protected ArrayList<Treasure> getHiddenTreasures(){
         return this.hiddenTreasures;
     }            // getHiddenTreasures ***** TO BE DEVELOPED *****
@@ -87,9 +111,14 @@ public class Player {
         
     }              // discardHiddenTreasure ***** TO BE DEVELOPED *****
     protected boolean validState(){
-        boolean isTrue = true;
-        return isTrue;
-    }                                // validState ***** TO BE DEVELOPED *****
+        boolean valid = false;
+        if(this.hiddenTreasures.size() <= 4 &&
+           this.pendingBadConsecuence.isEmpty() == true ){
+            valid = true;
+        } // if
+        
+        return valid;
+    }                                // validState
     protected void initTreasures(){
         
     }                                // initTreasures ***** TO BE DEVELOPED *****

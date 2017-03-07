@@ -29,8 +29,131 @@ public class CardDealer {
         return instance;
     }                        // getInstance
     protected void initTreasureCardDeck(){
+        // Si mi amo
+        Treasure trea1 = new Treasure("¡Si mi amo!",4,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea1);
         
-    }                         // initTreasureCardDeck **** TO BE DEVELOPED *****
+        // A prueba de babas
+        Treasure trea2 = new Treasure("A prueba de babas",2,TreasureKind.ARMOR);
+        this.unusedTreasures.add(trea2);
+        
+        // Ametralladora Thompson
+        Treasure trea3 = new Treasure("Ametralladora Thompson",4,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea3);
+        
+        // Botas de investigacion
+        Treasure trea4 = new Treasure("Botas de investigacion",3,TreasureKind.SHOES);
+        this.unusedTreasures.add(trea4);
+        
+        // Botas de lluvia ácida
+        Treasure trea5 = new Treasure("Botas de lluvia ácida",1,TreasureKind.SHOES);
+        this.unusedTreasures.add(trea5);
+        
+        // Camiseta de la UGR
+        Treasure trea6 = new Treasure("Camiseta de la UGR",1,TreasureKind.ARMOR);
+        this.unusedTreasures.add(trea6);
+        
+        // Capucha de Cthulhu
+        Treasure trea7 = new Treasure("Capucha de Cthulhu",3,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea7);
+        
+        // Casco Minero
+        Treasure trea8 = new Treasure("Casco Minero",2,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea8);
+        
+        // Clavo de raíl ferroviario
+        Treasure trea9 = new Treasure("Clavo de raíl ferroviario",3,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea9);
+        
+        // Cuchillo de sushi arcano
+        Treasure trea10 = new Treasure("Cuchillo de sushi arcano",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea10);
+        
+        // El aparato del Pr. Tesla
+        Treasure trea11 = new Treasure("El aparato del Pr. Tesla",4,TreasureKind.ARMOR);
+        this.unusedTreasures.add(trea11);
+        
+        // Escopeta de 3 cañones
+        Treasure trea12 = new Treasure("Escopeta de 3 cañones",4,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea12);
+        
+        // Fez alópodo
+        Treasure trea13 = new Treasure("Fez alópodo",3,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea13);
+        
+        // Gaita
+        Treasure trea14 = new Treasure("Gaita",4,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea14);
+        
+        // Garabato Místico
+        Treasure trea15 = new Treasure("Garabato Místico",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea15);
+        
+        // Hacha prehistórica
+        Treasure trea16 = new Treasure("Hacha prehistórica",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea16);
+        
+        // Insecticida
+        Treasure trea17 = new Treasure("Insecticida",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea17);
+        
+        // La rebeca metálica
+        Treasure trea18 = new Treasure("La rebeca metálica",2,TreasureKind.ARMOR);
+        this.unusedTreasures.add(trea18);
+        
+        // Lanzallamas
+        Treasure trea19 = new Treasure("Lanzallamas",4,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea19);
+        
+        // Linterna a 2 manos
+        Treasure trea20 = new Treasure("Linterna a 2 manos",3,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea20);
+        
+        // Mazo de los antiguos
+        Treasure trea21 = new Treasure("Mazo de los antiguos",3,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea21);
+        
+        // Necrocomicón
+        Treasure trea22 = new Treasure("Necrocomicón",1,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea22);
+        
+        // Necro-playboycón
+        Treasure trea23 = new Treasure("Necro-playboycón",3,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea23);
+        
+        // Necro-gnomicón
+        Treasure trea24 = new Treasure("Necro-gnomicón",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea24);
+        
+        // Necrognomicón
+        Treasure trea25 = new Treasure("Necrognomicón",5,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea25);
+        
+        // Necrotelecom
+        Treasure trea26 = new Treasure("Necrotelecom",2,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea26);
+        
+        // Porra preternatural
+        Treasure trea27 = new Treasure("Porra preternatural",2,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea27);
+        
+        // Shogulador
+        Treasure trea28 = new Treasure("Shogulador",1,TreasureKind.BOTHHANDS);
+        this.unusedTreasures.add(trea28);
+        
+        // Tentáculo de pega
+        Treasure trea29 = new Treasure("Tentáculo de pega",0,TreasureKind.HELMET);
+        this.unusedTreasures.add(trea29);
+        
+        // Varita de atizamiento
+        Treasure trea30 = new Treasure("Varita de atizamiento",3,TreasureKind.ONEHAND);
+        this.unusedTreasures.add(trea30);
+        
+        // Zapato deja-amigos
+        Treasure trea31 = new Treasure("Zapato deja-amigos",0,TreasureKind.SHOES);
+        this.unusedTreasures.add(trea31);
+ 
+    }                       // initTreasureCardDeck
     protected void initMonsterCardDeck(){
         // Bonanza
         BadConsecuence badConsec = new BadConsecuence("Pierdes tu armadura visible y otra oculta.", 
@@ -239,6 +362,7 @@ public class CardDealer {
       } // if
     }                     // giveMonsterBack
     protected void initCards(){
-        
+    
     }                                    // initCards ***** TO BE DEVELOPED *****
+
 }
