@@ -116,16 +116,35 @@ public class Player {
     }                                    // isDead 
     protected ArrayList<Treasure> getHiddenTreasures(){
         return this.hiddenTreasures;
-    }            // getHiddenTreasures ***** TO BE DEVELOPED *****
+    }            // getHiddenTreasures
     protected ArrayList<Treasure> getVisibleTreasures(){
         return this.visibleTreasures;
-    }           // getVisibleTreasures ***** TO BE DEVELOPED *****
+    }           // getVisibleTreasures 
     protected CombatResult combat(Monster m){
-       return CombatResult.WIN;
+        CombatResult result;
+       if(this.getCombatLevel() > m.getCombatLvl()){
+           this.applyPrize(m);
+           
+           if(this.level >= Player.MAXLEVEL){
+             result = CombatResult.WINGAME;
+           }
+           else{
+             result = CombatResult.WIN;  
+           } // else
+       } // if Combat Won
+       else{
+           this.applyBadConsecuence(m);
+           result = CombatResult.LOSE;
+       } // else Combat Lost
        
-    }                      // combat ***** TO BE DEVELOPED *****
+       return result;       
+    }                     // combat
     protected void makeTreasureVisible(Treasure t){
-        
+      if(this.canMakeTreasureVisible(t) == true){
+          this.visibleTreasures.add(t);
+          this.hiddenTreasures.remove(t);
+          
+      } // if  
     }                // makeTreasureVisible ***** TO BE DEVELOPED *****
     protected void discardVisibleTreasure(Treasure t){
         

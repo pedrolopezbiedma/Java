@@ -30,6 +30,17 @@ public class Napakalaki {
             players.add(p);
         } // for
     }             // initPlayers
+    private void setEnemies(){
+        int enemyIndex;
+        for(int i=0;i<players.size();i++){
+            
+            do {
+                enemyIndex=(int)(Math.random()*(players.size()));
+            }
+            while(enemyIndex==i);
+            players.get(i).setEnemy(players.get(enemyIndex));
+        }        
+    }                                    // setEnemies
     private Player nextPlayer(){
         if(this.currentPlayer.getName().isEmpty()){ // First Play
             int nextPlayer = (int)(Math.random()*(players.size()));
@@ -62,20 +73,44 @@ public class Napakalaki {
         } // else
     }                          // nextTurnAllowed
     protected CombatResult developCombat(){
-        return CombatResult.WIN;
-    }                        // developCombat ***** TO BE DEVELOPED *****
+        CombatResult result = this.currentPlayer.combat(this.currentMonster);
+        return result;
+    }                        // developCombat
     protected void discardVisibleTreasures(ArrayList<Treasure> treasures){
+      for(int i = 0; i < treasures.size();i++){
+        this.currentPlayer.discardVisibleTreasure(treasures.get(i));
+        this.dealer.giveTreasureBack(treasures.get(i));
         
-    }// discardVisibleTreasures ***** TO BE DEVELOPED *****
+      } // for  
+            
+    }// discardVisibleTreasures ***** TO BE REVIEWED *****
     protected void discardHiddenTreasures(ArrayList<Treasure> treasures){
+      for(int i = 0; i < treasures.size();i++){
+        this.currentPlayer.discardHiddenTreasure(treasures.get(i));
+        this.dealer.giveTreasureBack(treasures.get(i));
         
-    } // discardHiddenTreasures ***** TO BE DEVELOPED *****
+      } // for
+                
+    } // discardHiddenTreasures ***** TO BE REVIEWED *****
     protected void makeTreasuresVisible(ArrayList<Treasure> treasures){
-        
-    }   // makeTreasuresVisible ***** TO BE DEVELOPED *****
+      for(int i = 0; i < treasures.size(); i++){
+        this.currentPlayer.makeTreasureVisible(treasures.get(i));
+      }   // for
+      
+    }   // makeTreasuresVisible
     protected void initGame(ArrayList<String> players){
-           
-    }            // initGame ***** TO BE DEVELOPED *****
+      // Initializing Decks
+      this.dealer.initCards();
+      
+      // Inizialiting Players
+      this.initPlayers(players);
+      
+      // Setting enemies
+      this.setEnemies();
+      
+      // Initializing Game
+      this.nextTurn();
+    }           // initGame
     protected Player getCurrentPlayer(){
         return this.currentPlayer;
     }                           // getCurrentPlayer
@@ -83,9 +118,20 @@ public class Napakalaki {
         return this.currentMonster;
     }                         // getCurrentMonster
     protected boolean nextTurn(){
-        boolean isTrue = true;
-        return isTrue;
-    }                                  // nextTurn ***** TO BE DEVELOPED *****
+        boolean nextTurnPossible = false;
+        
+        if(this.nextTurnIsAllowed() == true){
+            nextTurnPossible = true;
+            this.currentMonster = dealer.nextMonster();
+            this.currentPlayer = this.nextPlayer();
+            
+            if(this.currentPlayer.isDead() == true){
+                currentPlayer.initTreasures();
+            } // if
+        } // if
+        
+        return nextTurnPossible;
+    }                                 // nextTurn
     protected boolean endOfGame(CombatResult result){
         if(result == CombatResult.WINGAME){
             return true;
@@ -94,17 +140,7 @@ public class Napakalaki {
             return false;
         } // else
     }              // endOfGame
-    protected void setEnemies(){
-        int enemyIndex;
-        for(int i=0;i<players.size();i++){
-            
-            do {
-                enemyIndex=(int)(Math.random()*(players.size()));
-            }
-            while(enemyIndex==i);
-            players.get(i).setEnemy(players.get(enemyIndex));
-        }        
-    }                                  // setEnemies
+
    
 }
 
