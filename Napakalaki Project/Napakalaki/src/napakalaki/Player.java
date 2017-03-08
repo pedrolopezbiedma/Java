@@ -16,22 +16,28 @@ public class Player {
     private int level;
     private boolean dead = true;
     BadConsecuence pendingBadConsecuence;
+    private Player enemy;
     ArrayList<Treasure> visibleTreasures = new ArrayList();
     ArrayList<Treasure> hiddenTreasures = new ArrayList();
     
     // Methods
     Player(String n){
         this.name = n;
-        this.level = 0;
+        this.level = 1;
         this.visibleTreasures = null;
         this.hiddenTreasures = null;
         this.pendingBadConsecuence = new BadConsecuence("Dead");
+        this.enemy = null;
     }                                              // Player
-    protected String getName(){
-        return this.name;
-    }                                    // getName
     private void bringToLife(){
         this.dead = false;
+        this.level = 1;
+        if(this.hiddenTreasures.size() > 0){
+            this.hiddenTreasures = null;
+        } // if
+        if(this.visibleTreasures.size() > 0){
+            this.visibleTreasures = null;
+        } // if
     }                                    // bringToLife
     private int getCombatLevel(){
         int totalCombatLevel = this.level;
@@ -40,17 +46,16 @@ public class Player {
                 totalCombatLevel = totalCombatLevel + this.visibleTreasures.get(i).getBonus();
             } // if
         } // for
-
-        for(int i = 0; i < this.hiddenTreasures.size() ; i++){
-            if(this.hiddenTreasures.get(i).getBonus() != 0){
-                totalCombatLevel = totalCombatLevel + this.hiddenTreasures.get(i).getBonus();
-            } // if
-        } // for    
         
         return totalCombatLevel;
     }                                 // getCombatLevel
     private void incrementLevels(int i){
-      this.level = this.level + i;  
+        if(this.level < Player.MAXLEVEL){
+            this.level = this.level + i;  
+        } // if
+        if(this.level > Player.MAXLEVEL){
+            this.level = Player.MAXLEVEL;
+        } // if
     }                           // incrementLevels
     private void decrementLevels(int i){
       this.level = this.level - i;
@@ -69,9 +74,23 @@ public class Player {
         
     }                   // applyBadConsecuence ***** TO BE DEVELOPED *****
     private boolean canMakeTreasureVisible(Treasure t){
-        boolean isTrue = true;
-        return isTrue;
-    }            // canMakeTreasureVisible ***** TO BE DEVELOPED *****
+        boolean canEquip = true;
+        int oneHandTreasures = 0;
+        for(int i = 0; i < this.visibleTreasures.size();i++){
+          if(this.visibleTreasures.get(i).getType() == TreasureKind.ONEHAND){ // ONEHAND treasure: special treatment
+            oneHandTreasures = oneHandTreasures + 1;
+          }
+          else{ // Not ONEHAND treasure
+            if(this.visibleTreasures.get(i).getType() == t.getType()){ // Already equiped a treasure of that kind
+              canEquip = false;  
+            }  // if
+          } // else
+        } // for
+        if(oneHandTreasures == 2 && t.getType() == TreasureKind.ONEHAND){
+            canEquip = false;
+        } // if
+        return canEquip;
+    }           // canMakeTreasureVisible
     private int howManyVisibleTreasures(TreasureKind tr){
         int count = 0;
         for(int i = 0 ; i < this.visibleTreasures.size() ; i++){
@@ -86,8 +105,12 @@ public class Player {
       if(this.hiddenTreasures.isEmpty() &&
          this.visibleTreasures.isEmpty()){
           this.dead = true;
+          this.level = 1;
       }  // if
     }                               // dieIfNoTreasures
+    protected String getName(){
+        return this.name;
+    }                                    // getName
     protected boolean isDead(){
         return this.dead;
     }                                    // isDead 
@@ -128,7 +151,16 @@ public class Player {
     }                                     // getLevels ***** TO BE DEVELOPED *****
     protected void discardAllTreasures(){
         
-    }                           // discardAllTreasures ***** TO BE DEVELOPED *****
+    }                          // discardAllTreasures ***** TO BE DEVELOPED *****
+    protected void setEnemy(Player enemy){
+        this.enemy = enemy;
+    }                         // setEnemy
+    protected Treasure giveMeATreasure(){
+        int treasureIndex = (int)(Math.random()*(this.hiddenTreasures.size()));
+        Treasure t = this.hiddenTreasures.get(treasureIndex);
+        //this.hiddenTreasures.remove(treasureIndex); // Not sure if to be done here.
+        return t;
+    }                          // giveMeATreasure
     
     
     

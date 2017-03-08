@@ -54,7 +54,7 @@ public class BadConsecuence {
            this.nHiddenTreasures == 0 &&
            this.nVisibleTreasures == 0 ){
             isEmpty = true;
-        } // This Badconsecuence does not make treasures to be lost.
+        } // This BadConsecuence does not make treasures to be lost.
         else{
             isEmpty = false;
         }
@@ -79,11 +79,13 @@ public class BadConsecuence {
         return this.specificHiddenTreasures;
     }       // getSpecHidTreasures
     protected void substractVisTreasures(Treasure t){
-        
-    }              // substractVisTreasures ***** TO BE DEVELOPED *****
+      this.specificVisibleTreasures.remove(t.getType());
+      this.nVisibleTreasures--;
+    }              // substractVisTreasures
     protected void substractHidTreasures(Treasure t){
-        
-    }              // substractHidTreasures ***** TO BE DEVELOPED *****
+      this.specificHiddenTreasures.remove(t.getType());
+      this.nHiddenTreasures--;        
+    }              // substractHidTreasures
     protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visTreasures, 
             ArrayList<Treasure> hidTreasures){
         BadConsecuence bc = new BadConsecuence("Text");

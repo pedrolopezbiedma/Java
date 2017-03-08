@@ -12,24 +12,24 @@ package napakalaki;
 public class Prize {
     // Class attributes.
     private int treasures;
-    private int level;
+    private int levels;
     
     // Methods
     Prize(int t, int l){
         this.treasures = t;
-        this.level = l;
+        this.levels = l;
     }                                           // Parameter Constructor
     protected int getTreasures(){
         return this.treasures;
     }                                  // Retrieve treasure attribute
     protected int getLevel(){
-        return this.level;
+        return this.levels;
     }                                      // Retrieve level attribute
     @Override
     public String toString(){
         String status;
         status = "Treasures: " + Integer.toString(this.treasures) 
-                + " & Levels: " + Integer.toString(this.level);
+                + " & Levels: " + Integer.toString(this.levels);
         return status;
     }                                      // Retrive object status
 }

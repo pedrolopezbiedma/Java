@@ -28,7 +28,7 @@ public class CardDealer {
     public static CardDealer getInstance(){
         return instance;
     }                        // getInstance
-    protected void initTreasureCardDeck(){
+    private void initTreasureCardDeck(){
         // Si mi amo
         Treasure trea1 = new Treasure("¡Si mi amo!",4,TreasureKind.HELMET);
         this.unusedTreasures.add(trea1);
@@ -153,8 +153,8 @@ public class CardDealer {
         Treasure trea31 = new Treasure("Zapato deja-amigos",0,TreasureKind.SHOES);
         this.unusedTreasures.add(trea31);
  
-    }                       // initTreasureCardDeck
-    protected void initMonsterCardDeck(){
+    }                         // initTreasureCardDeck
+    private void initMonsterCardDeck(){
         // Bonanza
         BadConsecuence badConsec = new BadConsecuence("Pierdes tu armadura visible y otra oculta.", 
                 0, new ArrayList(Arrays.asList(TreasureKind.ARMOR)), new ArrayList(Arrays.asList(TreasureKind.ARMOR)));
@@ -332,23 +332,37 @@ public class CardDealer {
         Prize prize25 = new Prize(3,1);
         Monster monster25 = new Monster("Yskhtihyssg-Goth", 12, badConsec25, prize25);
         this.unusedMonsters.add(monster25);
-    }                        // initMonsterCardDeck
-    protected void shuffleTreasures(){
+    }                          // initMonsterCardDeck
+    private void shuffleTreasures(){
         long seed = System.nanoTime();
         Collections.shuffle(this.unusedTreasures,new Random(seed));
-    }                             // shuffleTreasures
-    protected void shuffleMonsters(){
+    }                               // shuffleTreasures
+    private void shuffleMonsters(){
         long seed = System.nanoTime();
         Collections.shuffle(this.unusedMonsters,new Random(seed));        
-    }                              // shuffleMonsters
+    }                                // shuffleMonsters
     protected Treasure nextTreasure(){
-       Treasure t;
-       return t;
-    }                             // nextTreasure ***** TO BE DEVELOPED *****
+       if(this.unusedTreasures.isEmpty()){
+           this.unusedTreasures = this.usedTreasures;
+           this.usedTreasures.clear();
+           this.shuffleTreasures();
+       } // if
+       
+       Treasure nextTreasure = this.unusedTreasures.get(0);
+       this.unusedTreasures.remove(0);
+       return nextTreasure;
+    }                            // nextTreasure
     protected Monster nextMonster(){
-        Monster m;
-        return m;
-    }                               // nextMonster ***** TO BE DEVELOPED *****
+       if(this.unusedMonsters.isEmpty()){
+           this.unusedMonsters = this.usedMonsters;
+           this.usedMonsters.clear();
+           this.shuffleMonsters();
+       } // if
+       
+       Monster nextMonster = this.unusedMonsters.get(0);
+       this.unusedMonsters.remove(0);
+       return nextMonster;
+    }                              // nextMonster
     protected void giveTreasureBack(Treasure t){
       if(this.unusedTreasures.contains(t) == true){
         this.unusedTreasures.remove(t);
@@ -362,7 +376,8 @@ public class CardDealer {
       } // if
     }                     // giveMonsterBack
     protected void initCards(){
-    
-    }                                    // initCards ***** TO BE DEVELOPED *****
+      this.initTreasureCardDeck();
+      this.initMonsterCardDeck();
+    }                                    // initCards
 
 }

@@ -13,7 +13,7 @@ public class Dice {
     // Class Attributes
     private static final Dice instance = new Dice();
     
-    // Merhods
+    // Methods
     private Dice(){
         
     }                                                // Private constructor
