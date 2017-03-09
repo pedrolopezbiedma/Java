@@ -72,33 +72,39 @@ public class Napakalaki {
             } // else
         } // else
     }                          // nextTurnAllowed
-    protected CombatResult developCombat(){
-        CombatResult result = this.currentPlayer.combat(this.currentMonster);
-        return result;
-    }                        // developCombat
-    protected void discardVisibleTreasures(ArrayList<Treasure> treasures){
-      for(int i = 0; i < treasures.size();i++){
-        this.currentPlayer.discardVisibleTreasure(treasures.get(i));
-        this.dealer.giveTreasureBack(treasures.get(i));
-        
-      } // for  
-            
-    }// discardVisibleTreasures ***** TO BE REVIEWED *****
-    protected void discardHiddenTreasures(ArrayList<Treasure> treasures){
-      for(int i = 0; i < treasures.size();i++){
-        this.currentPlayer.discardHiddenTreasure(treasures.get(i));
-        this.dealer.giveTreasureBack(treasures.get(i));
-        
-      } // for
-                
-    } // discardHiddenTreasures ***** TO BE REVIEWED *****
+    protected boolean endOfGame(CombatResult result){
+        if(result == CombatResult.WINGAME){
+            return true;
+        } // if
+        else{
+            return false;
+        } // else
+    }              // endOfGame
     protected void makeTreasuresVisible(ArrayList<Treasure> treasures){
       for(int i = 0; i < treasures.size(); i++){
         this.currentPlayer.makeTreasureVisible(treasures.get(i));
       }   // for
       
-    }   // makeTreasuresVisible
-    protected void initGame(ArrayList<String> players){
+    }// makeTreasuresVisible
+    public void discardVisibleTreasures(ArrayList<Treasure> treasures){
+      for(int i = 0; i < treasures.size();i++){
+        this.currentPlayer.discardVisibleTreasure(treasures.get(i));
+        this.dealer.giveTreasureBack(treasures.get(i));
+      } // for
+            
+    }// discardVisibleTreasures
+    public void discardHiddenTreasures(ArrayList<Treasure> treasures){
+      for(int i = 0; i < treasures.size();i++){
+        this.currentPlayer.discardHiddenTreasure(treasures.get(i));
+        this.dealer.giveTreasureBack(treasures.get(i));
+      } // for
+                
+    } // discardHiddenTreasures
+    public CombatResult developCombat(){
+        CombatResult result = this.currentPlayer.combat(this.currentMonster);
+        return result;
+    }                           // developCombat
+    public void initGame(ArrayList<String> players){
       // Initializing Decks
       this.dealer.initCards();
       
@@ -110,14 +116,14 @@ public class Napakalaki {
       
       // Initializing Game
       this.nextTurn();
-    }           // initGame
-    protected Player getCurrentPlayer(){
+    }              // initGame
+    public Player getCurrentPlayer(){
         return this.currentPlayer;
-    }                           // getCurrentPlayer
-    protected Monster getCurrentMonster(){
+    }                              // getCurrentPlayer
+    public Monster getCurrentMonster(){
         return this.currentMonster;
-    }                         // getCurrentMonster
-    protected boolean nextTurn(){
+    }                            // getCurrentMonster
+    public boolean nextTurn(){
         boolean nextTurnPossible = false;
         
         if(this.nextTurnIsAllowed() == true){
@@ -131,15 +137,8 @@ public class Napakalaki {
         } // if
         
         return nextTurnPossible;
-    }                                 // nextTurn
-    protected boolean endOfGame(CombatResult result){
-        if(result == CombatResult.WINGAME){
-            return true;
-        } // if
-        else{
-            return false;
-        } // else
-    }              // endOfGame
+    }                                    // nextTurn
+
 
    
 }

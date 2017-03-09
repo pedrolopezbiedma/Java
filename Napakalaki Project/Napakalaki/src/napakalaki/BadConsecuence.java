@@ -79,19 +79,56 @@ public class BadConsecuence {
         return this.specificHiddenTreasures;
     }       // getSpecHidTreasures
     protected void substractVisTreasures(Treasure t){
-      this.specificVisibleTreasures.remove(t.getType());
-      this.nVisibleTreasures--;
+        boolean removed = false;
+        removed = this.specificVisibleTreasures.remove(t.getType());
+        if(removed == true){
+            this.nVisibleTreasures--;
+        } // if
+      
     }              // substractVisTreasures
     protected void substractHidTreasures(Treasure t){
-      this.specificHiddenTreasures.remove(t.getType());
-      this.nHiddenTreasures--;        
+        boolean removed = false;
+        this.specificHiddenTreasures.remove(t.getType());
+        if(removed == true){
+            this.nHiddenTreasures--;        
+        } // if
     }              // substractHidTreasures
-    protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visTreasures, 
-            ArrayList<Treasure> hidTreasures){
-        BadConsecuence bc = new BadConsecuence("Text");
-        
-        return bc;
-    }                     // adjustToFitTreasureLists ***** TO BE DEVELOPED *****
+    protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visSpecTreasures, 
+            ArrayList<Treasure> hidSpecTreasures){
+            if(this.nVisibleTreasures > visSpecTreasures.size()){ // Updating nVisibleTreasures
+                this.nVisibleTreasures = visSpecTreasures.size();
+            } // if
+            if(this.nHiddenTreasures > hidSpecTreasures.size()){
+                this.nHiddenTreasures = hidSpecTreasures.size();
+            }
+            
+
+            ArrayList<TreasureKind> newVisibleTreasures = new ArrayList();
+            for(int i = 0; i < this.specificVisibleTreasures.size(); i++){
+                boolean found = false;
+                for(int j = 0; j < visSpecTreasures.size() && found == false; j++){
+                  if(this.specificVisibleTreasures.get(i) == visSpecTreasures.get(j).getType()){
+                    newVisibleTreasures.add(this.specificVisibleTreasures.get(i));
+                    found = true;
+                  }  // if
+                } // for
+            } // for
+            this.specificVisibleTreasures = newVisibleTreasures;
+
+            ArrayList<TreasureKind> newHiddenTreasures = new ArrayList();
+            for(int i = 0; i < this.specificHiddenTreasures.size(); i++){
+                boolean found = false;
+                for(int j = 0; j < hidSpecTreasures.size() && found == false; j++){
+                  if(this.specificHiddenTreasures.get(i) == hidSpecTreasures.get(j).getType()){
+                    newHiddenTreasures.add(this.specificHiddenTreasures.get(i));
+                    found = true;
+                  }  // if
+                } // for
+            } // for
+            this.specificHiddenTreasures = newHiddenTreasures;
+            
+        return this;
+    }                // adjustToFitTreasureLists
     @Override // TODO Mostrar lista de tesoros.
     public String toString(){
         String status;
