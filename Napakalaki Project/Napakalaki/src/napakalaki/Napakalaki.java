@@ -19,7 +19,7 @@ public class Napakalaki {
     
     // Methods
     private Napakalaki(){
-        
+        this.dealer = CardDealer.getInstance();
     }                                          // Private Constructor
     public static Napakalaki getInstance(){
         return instance;
@@ -42,7 +42,7 @@ public class Napakalaki {
         }        
     }                                    // setEnemies
     private Player nextPlayer(){
-        if(this.currentPlayer.getName().isEmpty()){ // First Play
+        if(this.currentPlayer == null){ // First Play
             int nextPlayer = (int)(Math.random()*(players.size()));
             this.currentPlayer = this.players.get(nextPlayer);
             
@@ -110,12 +110,13 @@ public class Napakalaki {
       
       // Inizialiting Players
       this.initPlayers(players);
-      
+
       // Setting enemies
       this.setEnemies();
       
       // Initializing Game
       this.nextTurn();
+            System.out.println ("Pasado el nextTurn");
     }              // initGame
     public Player getCurrentPlayer(){
         return this.currentPlayer;
@@ -130,7 +131,6 @@ public class Napakalaki {
             nextTurnPossible = true;
             this.currentMonster = dealer.nextMonster();
             this.currentPlayer = this.nextPlayer();
-            
             if(this.currentPlayer.isDead() == true){
                 currentPlayer.initTreasures();
             } // if

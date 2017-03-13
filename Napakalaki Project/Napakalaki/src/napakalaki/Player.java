@@ -34,11 +34,11 @@ public class Player {
     private void bringToLife(){
         this.dead = false;
         this.level = 1;
-        if(this.hiddenTreasures.size() > 0){
-            this.hiddenTreasures = null;
+        if(this.hiddenTreasures == null){
+            this.hiddenTreasures = new ArrayList();
         } // if
-        if(this.visibleTreasures.size() > 0){
-            this.visibleTreasures = null;
+        if(this.visibleTreasures == null){
+            this.visibleTreasures = new ArrayList();
         } // if
     }                                   // bringToLife
     private int getCombatLevel(){
@@ -127,6 +127,7 @@ public class Player {
         this.canISteal = false;
     }                                    // haveStolen
     protected boolean isDead(){
+                      System.out.println("Salgo del isDead");
         return this.dead;
     }                                    // isDead 
     protected CombatResult combat(Monster m){
