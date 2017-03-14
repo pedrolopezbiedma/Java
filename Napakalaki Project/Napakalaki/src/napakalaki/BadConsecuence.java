@@ -49,15 +49,26 @@ public class BadConsecuence {
     protected boolean isEmpty(){
         boolean isEmpty;
         
-        if(this.specificHiddenTreasures.isEmpty() &&
-           this.specificVisibleTreasures.isEmpty() &&
-           this.nHiddenTreasures == 0 &&
+        if(this.nHiddenTreasures == 0 &&
            this.nVisibleTreasures == 0 ){
-            isEmpty = true;
-        } // This BadConsecuence does not make treasures to be lost.
+            if(this.specificHiddenTreasures == null &&
+               this.specificVisibleTreasures == null){
+                isEmpty = true;
+            } // if
+            else{
+                if(this.specificHiddenTreasures.size() > 0 &&
+                   this.specificVisibleTreasures.size() > 0){
+                    isEmpty = false;
+                } // if
+                else{
+                    isEmpty = true;
+                } // else
+            } // else
+        } // if
         else{
             isEmpty = false;
         }
+
         return isEmpty;
     }                                  // isEmpty 
     protected String getText(){
@@ -95,6 +106,7 @@ public class BadConsecuence {
     }              // substractHidTreasures
     protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visSpecTreasures, 
             ArrayList<Treasure> hidSpecTreasures){
+            System.out.println ("Estoy dentro del AdjustToFitTreasureLists");
             if(this.nVisibleTreasures > visSpecTreasures.size()){ // Updating nVisibleTreasures
                 this.nVisibleTreasures = visSpecTreasures.size();
             } // if
@@ -102,7 +114,7 @@ public class BadConsecuence {
                 this.nHiddenTreasures = hidSpecTreasures.size();
             }
             
-
+            System.out.println ("Voy a entrar en el doble bucle de la clase Bad Consecuence");
             ArrayList<TreasureKind> newVisibleTreasures = new ArrayList();
             for(int i = 0; i < this.specificVisibleTreasures.size(); i++){
                 boolean found = false;

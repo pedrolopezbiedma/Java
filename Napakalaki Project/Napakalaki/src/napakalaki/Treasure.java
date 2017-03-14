@@ -21,7 +21,7 @@ public class Treasure {
         this.bonus = b;
         this.type = tr;
     }                    // Parameters Constructor
-    protected String getName(){
+    public String getName(){
         return this.name;
     }                                    // getName
     protected int getBonus(){

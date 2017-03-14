@@ -378,6 +378,8 @@ public class CardDealer {
     protected void initCards(){
       this.initTreasureCardDeck();
       this.initMonsterCardDeck();
+      this.shuffleTreasures();
+      this.shuffleMonsters();
     }                                    // initCards
 
 }

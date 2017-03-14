@@ -127,7 +127,6 @@ public class Player {
         this.canISteal = false;
     }                                    // haveStolen
     protected boolean isDead(){
-                      System.out.println("Salgo del isDead");
         return this.dead;
     }                                    // isDead 
     protected CombatResult combat(Monster m){

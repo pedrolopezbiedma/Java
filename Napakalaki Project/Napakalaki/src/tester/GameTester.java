@@ -38,14 +38,14 @@ public class GameTester {
       currentPlayer = game.getCurrentPlayer();
       do { // Mientras el jugador se decide a conocer al monstruo
         System.out.println ("******* ******* ******* ******* ******* ******* *******");
-        System.out.println ("\n\n Turno de: " + currentPlayer.toString());
+        System.out.println ("\n\n Turno de: " + currentPlayer.getName());
         command = getCommandBeforeKnowingMonster ();
         command = processCommand (command, currentPlayer);        
       } while (command != Command.Exit && command != Command.ShowMonster);
       if (command == Command.ShowMonster) {
         do { // Mientras el jugador se decida a combatir 
           System.out.println ("******* ******* ******* ******* ******* ******* *******");
-          System.out.println ("\n\n Turno de: " + currentPlayer.toString());
+          System.out.println ("\n\n Turno de: " + currentPlayer.getName());
           command = getCommandBeforeFighting ();
           command = processCommand (command, currentPlayer);
         } while (command != Command.Exit && command != Command.Combat);
@@ -66,7 +66,7 @@ public class GameTester {
           if (combatResult != CombatResult.WINGAME) {
             do { // Hasta que se avance de turno 
               System.out.println ("******* ******* ******* ******* ******* ******* *******");
-              System.out.println ("\n\n Turno de: " + currentPlayer.toString());
+              System.out.println ("\n\n Turno de: " + currentPlayer.getName());
               if (currentPlayer.canISteal())
                 command = getCommandAfterFighting();
               else 
@@ -125,8 +125,7 @@ public class GameTester {
       System.out.print ("Escribe el nombre del jugador " + i + ": ");
       names.add (in.nextLine());
     }
-    
-    System.out.println("fin getPlayerNames");
+
     return names;
   }
 
@@ -261,7 +260,7 @@ public class GameTester {
         if (aTreasure == null)
           System.out.println ("\n\n No has podido robar nada \n\n");
         else
-          System.out.println ("\n\n Has robado este tesoro: \n\n" + aTreasure.toString());
+          System.out.println ("\n\n Has robado este tesoro: \n\n" + aTreasure.getName());
         break;
       case NextTurn :
         if (! game.nextTurn ()) {
@@ -287,7 +286,7 @@ public class GameTester {
     
     for (Treasure t : treasures) {
       optionMenu++;
-      System.out.println ("\n" + (menu ? optionMenu + ":" : "") + t.toString());
+      System.out.println ("\n" + (menu ? optionMenu + ":" : "") + t.getName());
     }
     return optionMenu;
   }

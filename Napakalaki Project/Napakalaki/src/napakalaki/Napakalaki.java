@@ -107,7 +107,7 @@ public class Napakalaki {
     public void initGame(ArrayList<String> players){
       // Initializing Decks
       this.dealer.initCards();
-      
+
       // Inizialiting Players
       this.initPlayers(players);
 
@@ -116,7 +116,6 @@ public class Napakalaki {
       
       // Initializing Game
       this.nextTurn();
-            System.out.println ("Pasado el nextTurn");
     }              // initGame
     public Player getCurrentPlayer(){
         return this.currentPlayer;
