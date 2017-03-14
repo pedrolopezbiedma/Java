@@ -30,4 +30,10 @@ public class Treasure {
     protected TreasureKind getType(){
         return this.type;
     }                              // getType
+    
+    @Override
+    public String toString(){
+        String status = " - Treasure: " + this.name + " Bonus granted:" + this.bonus + " Type: " + this.type;
+        return status;
+    } // toString ***** TO BE DELETED *****
 }

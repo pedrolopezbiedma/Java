@@ -27,7 +27,7 @@ public class Player {
         this.level = 1;
         this.visibleTreasures = null;
         this.hiddenTreasures = null;
-        this.pendingBadConsecuence = new BadConsecuence("Dead");
+        this.pendingBadConsecuence = null;
         this.enemy = null;
         this.canISteal = true;
     }                                              // Player
@@ -76,7 +76,7 @@ public class Player {
 
         if (numTreasures > 0){
             dealer = CardDealer.getInstance();
-            for(int i = 0; i < numTreasures-1; i++){
+            for(int i = 0; i < numTreasures; i++){
                 this.hiddenTreasures.add(dealer.nextTreasure());
             }
         } // if
@@ -91,19 +91,41 @@ public class Player {
     private boolean canMakeTreasureVisible(Treasure t){
         boolean canEquip = true;
         int oneHandTreasures = 0;
-        for(int i = 0; i < this.visibleTreasures.size();i++){
-          if(this.visibleTreasures.get(i).getType() == TreasureKind.ONEHAND){ // ONEHAND treasure: special treatment
-            oneHandTreasures = oneHandTreasures + 1;
-          }
-          else{ // Not ONEHAND treasure
-            if(this.visibleTreasures.get(i).getType() == t.getType()){ // Already equiped a treasure of that kind
-              canEquip = false;  
-            }  // if
-          } // else
+        int bothHandsTreasure = 0;
+        
+        // Check if new treasure type is already assigned. ( Except for one Hand that needs special treatment )
+        for(int i = 0; i < this.visibleTreasures.size() && canEquip == true ;i++){
+            if(this.visibleTreasures.get(i).getType() == t.getType() && t.getType() != TreasureKind.ONEHAND){
+             canEquip = false;
+            }
         } // for
-        if(oneHandTreasures == 2 && t.getType() == TreasureKind.ONEHAND){
-            canEquip = false;
+        
+        // If new treasure type is not already assigned
+        if(canEquip == true){
+            for(int i = 0; i < this.visibleTreasures.size() ;i++){
+                if(this.visibleTreasures.get(i).getType() == TreasureKind.ONEHAND){
+                    oneHandTreasures = oneHandTreasures + 1;
+                } // if
+                if(this.visibleTreasures.get(i).getType() == TreasureKind.BOTHHANDS){
+                    bothHandsTreasure = bothHandsTreasure + 1;
+                } // if                
+            } // for
+            if(oneHandTreasures > 1 && t.getType() == TreasureKind.ONEHAND){ // If already have 2 TWOHANDS asisgned, not able to equipo another one
+                canEquip = false;
+            } // if
+            if(oneHandTreasures > 0 && t.getType() == TreasureKind.BOTHHANDS){ // If already have any ONEHAND and try to equip a TWOHANDS treasure, error.
+                canEquip = false;
+            } // if
+            if(bothHandsTreasure > 0 && ( t.getType() == TreasureKind.BOTHHANDS || t.getType() == TreasureKind.BOTHHANDS ) ){ //If already have a TWOHANDS assigned, no other "Hands" treasure can be assigned
+                canEquip = false;
+            } // if
         } // if
+
+        if(canEquip){
+            System.out.println ("Tesoro equipado");
+        }else{
+            System.out.println ("Tesoro NO equipado");
+        }
         return canEquip;
     }           // canMakeTreasureVisible
     private int howManyVisibleTreasures(TreasureKind tr){
@@ -151,7 +173,7 @@ public class Player {
     protected boolean validState(){
         boolean valid = false;
         if(this.hiddenTreasures.size() <= 4 &&
-           this.pendingBadConsecuence.isEmpty() == true ){
+           this.pendingBadConsecuence == null ){
             valid = true;
         } // if
         
@@ -274,4 +296,23 @@ public class Player {
         return this.name;
     }                                       // getName
     
+    @Override // TODO Mostrar lista de tesoros.
+    public String toString(){
+        String status;
+        status = "Player's name: " + this.name + "\n"
+                + ", Player's level: " + Integer.toString(this.level) + "\n"
+                + ". Player's combat level:" + Integer.toString(this.getCombatLevel()) + "\n";
+        
+        status = status + " ***** Hidden Treasures: ***** " + "\n";
+        for(int i = 0; i < this.hiddenTreasures.size();i++){
+            status = status + i+1 + this.hiddenTreasures.get(i).toString() + "\n";
+        } // for
+        
+         status = status + " ***** Visible Treasures: *****" + "\n";
+        for(int i = 0; i < this.visibleTreasures.size();i++){
+            status = status + i+1 + this.visibleTreasures.get(i).toString() + "\n";
+        } // for
+
+        return status;
+    }                                      // Retrieve object status
 }

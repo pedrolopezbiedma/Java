@@ -39,6 +39,7 @@ public class GameTester {
       do { // Mientras el jugador se decide a conocer al monstruo
         System.out.println ("******* ******* ******* ******* ******* ******* *******");
         System.out.println ("\n\n Turno de: " + currentPlayer.getName());
+        System.out.println ("\n\n Estado del jugador: " + currentPlayer.toString());
         command = getCommandBeforeKnowingMonster ();
         command = processCommand (command, currentPlayer);        
       } while (command != Command.Exit && command != Command.ShowMonster);
@@ -46,6 +47,7 @@ public class GameTester {
         do { // Mientras el jugador se decida a combatir 
           System.out.println ("******* ******* ******* ******* ******* ******* *******");
           System.out.println ("\n\n Turno de: " + currentPlayer.getName());
+          System.out.println ("\n\n Estado del jugador: " + "\n" + currentPlayer.toString());
           command = getCommandBeforeFighting ();
           command = processCommand (command, currentPlayer);
         } while (command != Command.Exit && command != Command.Combat);
@@ -67,6 +69,7 @@ public class GameTester {
             do { // Hasta que se avance de turno 
               System.out.println ("******* ******* ******* ******* ******* ******* *******");
               System.out.println ("\n\n Turno de: " + currentPlayer.getName());
+              System.out.println ("\n\n Estado del jugador: " + currentPlayer.toString());
               if (currentPlayer.canISteal())
                 command = getCommandAfterFighting();
               else 
