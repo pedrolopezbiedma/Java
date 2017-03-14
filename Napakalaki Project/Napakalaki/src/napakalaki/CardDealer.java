@@ -29,6 +29,7 @@ public class CardDealer {
         return instance;
     }                        // getInstance
     private void initTreasureCardDeck(){
+               
         // Si mi amo
         Treasure trea1 = new Treasure("¡Si mi amo!",4,TreasureKind.HELMET);
         this.unusedTreasures.add(trea1);
@@ -60,7 +61,7 @@ public class CardDealer {
         // Casco Minero
         Treasure trea8 = new Treasure("Casco Minero",2,TreasureKind.HELMET);
         this.unusedTreasures.add(trea8);
-        
+
         // Clavo de raíl ferroviario
         Treasure trea9 = new Treasure("Clavo de raíl ferroviario",3,TreasureKind.ONEHAND);
         this.unusedTreasures.add(trea9);
@@ -152,9 +153,10 @@ public class CardDealer {
         // Zapato deja-amigos
         Treasure trea31 = new Treasure("Zapato deja-amigos",0,TreasureKind.SHOES);
         this.unusedTreasures.add(trea31);
- 
+        
     }                         // initTreasureCardDeck
     private void initMonsterCardDeck(){
+         
         // Bonanza
         BadConsecuence badConsec = new BadConsecuence("Pierdes tu armadura visible y otra oculta.", 
                 0, new ArrayList(Arrays.asList(TreasureKind.ARMOR)), new ArrayList(Arrays.asList(TreasureKind.ARMOR)));
@@ -175,13 +177,13 @@ public class CardDealer {
         Prize prize2 = new Prize(1,1);
         Monster monster2 = new Monster("Bicéfalo", 20, badConsec2, prize2);
         this.unusedMonsters.add(monster2);
-        
+
         // Bichgooth
         BadConsecuence badConsec3 = new BadConsecuence("Sientes bichos bajo la ropa. Descarta la armadura visible", 
                 0, new ArrayList(Arrays.asList(TreasureKind.ARMOR)), new ArrayList(Arrays.asList()));
         Prize prize3 = new Prize(1,1);
         Monster monster3 = new Monster("Bichgooth", 2, badConsec3, prize3);
-        this.unusedMonsters.add(monster3);     
+        this.unusedMonsters.add(monster3); 
         
         // Chibithulthu
         BadConsecuence badConsec4 = new BadConsecuence("Embobados con el lindo primigeniote descartas de tu casco visible.", 

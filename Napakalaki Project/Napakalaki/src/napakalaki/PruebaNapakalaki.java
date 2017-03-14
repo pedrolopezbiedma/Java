@@ -23,10 +23,6 @@ public class PruebaNapakalaki {
         // Logic
         game.play(napakalaki, 2);
 
-        
-        
-
-        
     } // Main
     
 }

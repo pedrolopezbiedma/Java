@@ -48,7 +48,7 @@ public class BadConsecuence {
     }                                      // Parameter Constructor simulating death
     protected boolean isEmpty(){
         boolean isEmpty;
-        
+        System.out.println ("Estoy en el isEmpty");
         if(this.nHiddenTreasures == 0 &&
            this.nVisibleTreasures == 0 ){
             if(this.specificHiddenTreasures == null &&
@@ -90,64 +90,101 @@ public class BadConsecuence {
         return this.specificHiddenTreasures;
     }       // getSpecHidTreasures
     protected void substractVisTreasures(Treasure t){
-        boolean removed = false;
-        removed = this.specificVisibleTreasures.remove(t.getType());
-        if(removed == true){
-            this.nVisibleTreasures--;
+        if(this.specificVisibleTreasures != null){
+            boolean removed = false;
+            removed = this.specificVisibleTreasures.remove(t.getType());
+            if(removed == true){
+                this.nVisibleTreasures--;
+            } // if
         } // if
-      
+        else{
+            this.nVisibleTreasures--;
+        } // else
     }              // substractVisTreasures
     protected void substractHidTreasures(Treasure t){
-        boolean removed = false;
-        this.specificHiddenTreasures.remove(t.getType());
-        if(removed == true){
-            this.nHiddenTreasures--;        
+        if(this.specificHiddenTreasures != null){
+            boolean removed = false;
+            this.specificHiddenTreasures.remove(t.getType());
+            if(removed == true){
+                this.nHiddenTreasures--;        
+            } // if
         } // if
-    }              // substractHidTreasures
+        else{
+            this.nHiddenTreasures--;
+        } // else
+    }
     protected BadConsecuence adjustToFitTreasureLists(ArrayList<Treasure> visSpecTreasures, 
             ArrayList<Treasure> hidSpecTreasures){
-            System.out.println ("Estoy dentro del AdjustToFitTreasureLists");
-            if(this.nVisibleTreasures > visSpecTreasures.size()){ // Updating nVisibleTreasures
-                this.nVisibleTreasures = visSpecTreasures.size();
+            if(visSpecTreasures != null){
+                if(this.nVisibleTreasures > visSpecTreasures.size()){
+                    this.nVisibleTreasures = visSpecTreasures.size();
+                } // if
+                
+                if(this.specificVisibleTreasures != null){
+                    ArrayList<TreasureKind> newVisibleTreasures = new ArrayList();
+                    for(int i = 0; i < this.specificVisibleTreasures.size(); i++){
+                        boolean found = false;
+                        for(int j = 0; j < visSpecTreasures.size() && found == false; j++){
+                            if(this.specificVisibleTreasures.get(i) == visSpecTreasures.get(j).getType()){
+                                newVisibleTreasures.add(this.specificVisibleTreasures.get(i));
+                                found = true;
+                            }  // if
+                        } // for
+                    } // for
+                    this.specificVisibleTreasures = newVisibleTreasures;
+                } // if
             } // if
-            if(this.nHiddenTreasures > hidSpecTreasures.size()){
-                this.nHiddenTreasures = hidSpecTreasures.size();
-            }
-            
-            System.out.println ("Voy a entrar en el doble bucle de la clase Bad Consecuence");
-            ArrayList<TreasureKind> newVisibleTreasures = new ArrayList();
-            for(int i = 0; i < this.specificVisibleTreasures.size(); i++){
-                boolean found = false;
-                for(int j = 0; j < visSpecTreasures.size() && found == false; j++){
-                  if(this.specificVisibleTreasures.get(i) == visSpecTreasures.get(j).getType()){
-                    newVisibleTreasures.add(this.specificVisibleTreasures.get(i));
-                    found = true;
-                  }  // if
-                } // for
-            } // for
-            this.specificVisibleTreasures = newVisibleTreasures;
+            else{
+                this.nVisibleTreasures = 0;
+            } // else
 
-            ArrayList<TreasureKind> newHiddenTreasures = new ArrayList();
-            for(int i = 0; i < this.specificHiddenTreasures.size(); i++){
-                boolean found = false;
-                for(int j = 0; j < hidSpecTreasures.size() && found == false; j++){
-                  if(this.specificHiddenTreasures.get(i) == hidSpecTreasures.get(j).getType()){
-                    newHiddenTreasures.add(this.specificHiddenTreasures.get(i));
-                    found = true;
-                  }  // if
-                } // for
-            } // for
-            this.specificHiddenTreasures = newHiddenTreasures;
-            
+            if(hidSpecTreasures != null){    
+                if(this.nHiddenTreasures > hidSpecTreasures.size()){
+                    this.nHiddenTreasures = hidSpecTreasures.size();
+                } // if
+                
+                if(this.specificHiddenTreasures != null){
+                    ArrayList<TreasureKind> newHiddenTreasures = new ArrayList();
+                    for(int i = 0; i < this.specificHiddenTreasures.size(); i++){
+                        boolean found = false;
+                            for(int j = 0; j < hidSpecTreasures.size() && found == false; j++){
+                                if(this.specificHiddenTreasures.get(i) == hidSpecTreasures.get(j).getType()){
+                                    newHiddenTreasures.add(this.specificHiddenTreasures.get(i));
+                                    found = true;
+                                }  // if
+                            } // for
+                    } // for
+                    this.specificHiddenTreasures = newHiddenTreasures;
+                } // if
+            } // if
+            else{
+                this.nHiddenTreasures = 0;             
+            }
+
         return this;
     }                // adjustToFitTreasureLists
     @Override // TODO Mostrar lista de tesoros.
     public String toString(){
         String status;
         status = "Text: " + this.text 
-                + " ,Levels: " + Integer.toString(this.levels) 
-                + " ,Visible Treasures: " + Integer.toString(this.nVisibleTreasures) +
-                " and Hidden Treasures: " + Integer.toString(this.nHiddenTreasures);
+                + " ,Levels: " + Integer.toString(this.levels);
+                status = status + " and Num Visible Treasures: " + Integer.toString(this.nVisibleTreasures);
+                status = status + " ***** Visible Treasures: *****" + "\n";
+                if(this.specificHiddenTreasures != null){
+                    for(int i = 0; i < this.specificVisibleTreasures.size();i++){
+                        status = status + i+1 + this.specificVisibleTreasures.get(i).toString() + "\n";
+                    } // for
+                } // if
+                status = status + " ,Num Hidden Treasures: " + Integer.toString(this.nHiddenTreasures);
+                status = status + " ***** Hidden Treasures: ***** " + "\n";
+                
+                if(this.specificVisibleTreasures != null){
+                    for(int i = 0; i < this.specificHiddenTreasures.size();i++){
+                        status = status + i+1 + this.specificHiddenTreasures.get(i).toString() + "\n";
+                    } // for
+                } // if
+
+
         return status;
     }                                      // Retrieve object status
 }

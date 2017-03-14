@@ -86,7 +86,6 @@ public class Player {
         this.decrementLevels(bc.getLevels());
         BadConsecuence newBC = bc.adjustToFitTreasureLists(this.visibleTreasures,this.hiddenTreasures);
         this.setPendingBadConsecuence(newBC);
-        
     }                   // applyBadConsecuence
     private boolean canMakeTreasureVisible(Treasure t){
         boolean canEquip = true;
@@ -110,13 +109,14 @@ public class Player {
                     bothHandsTreasure = bothHandsTreasure + 1;
                 } // if                
             } // for
+
             if(oneHandTreasures > 1 && t.getType() == TreasureKind.ONEHAND){ // If already have 2 TWOHANDS asisgned, not able to equipo another one
                 canEquip = false;
             } // if
             if(oneHandTreasures > 0 && t.getType() == TreasureKind.BOTHHANDS){ // If already have any ONEHAND and try to equip a TWOHANDS treasure, error.
                 canEquip = false;
             } // if
-            if(bothHandsTreasure > 0 && ( t.getType() == TreasureKind.BOTHHANDS || t.getType() == TreasureKind.BOTHHANDS ) ){ //If already have a TWOHANDS assigned, no other "Hands" treasure can be assigned
+            if(bothHandsTreasure > 0 && ( t.getType() == TreasureKind.BOTHHANDS || t.getType() == TreasureKind.ONEHAND ) ){ //If already have a TWOHANDS assigned, no other "Hands" treasure can be assigned
                 canEquip = false;
             } // if
         } // if
@@ -172,9 +172,15 @@ public class Player {
     }                     // combat
     protected boolean validState(){
         boolean valid = false;
-        if(this.hiddenTreasures.size() <= 4 &&
-           this.pendingBadConsecuence == null ){
-            valid = true;
+        if(this.hiddenTreasures.size() <= 4){
+           if(this.pendingBadConsecuence == null){
+               valid = true;
+           }
+           else{
+               if(this.pendingBadConsecuence.isEmpty()){
+                   valid = true;
+               } // if
+           } // else
         } // if
         
         return valid;
@@ -188,8 +194,8 @@ public class Player {
       this.bringToLife();  
       treasure = dealer.nextTreasure();
         hiddenTreasures.add(treasure);
-        number = dice.nextNumber();
-
+        //number = dice.nextNumber();
+        number = 1;
         if (number > 1) {
             treasure = dealer.nextTreasure();
             hiddenTreasures.add(treasure);
@@ -239,9 +245,12 @@ public class Player {
         
         // Discarding the treasure.
         removed = this.visibleTreasures.remove(t);
-        
-        if(removed == true){ // If treasure was removed, update pending Badconsequence
-            this.pendingBadConsecuence.substractVisTreasures(t);
+
+        if(removed == true){
+            // If there's a pending Bad Consecuence, remove the treasure from it.
+            if(this.pendingBadConsecuence != null){
+                this.pendingBadConsecuence.substractVisTreasures(t);
+            } // if
         } // if
         this.dieIfNoTreasures();
         
@@ -258,15 +267,15 @@ public class Player {
         this.dieIfNoTreasures();       
     }                // discardHiddenTreasure
     public void discardAllTreasures(){
-        ArrayList<Treasure> myVisibleTreasures = this.visibleTreasures;
-        ArrayList<Treasure> myHiddenTreasures = this.hiddenTreasures;
-        
-        for(int i = 0; i < this.visibleTreasures.size(); i++){
-            this.discardVisibleTreasure(this.visibleTreasures.get(i));
+        ArrayList<Treasure> myVisibleTreasures = new ArrayList(this.visibleTreasures);
+        ArrayList<Treasure> myHiddenTreasures = new ArrayList(this.hiddenTreasures);
+
+        for(int i = myVisibleTreasures.size()-1; i >= 0 ; i--){
+            this.discardVisibleTreasure(myVisibleTreasures.get(i));
         } // for
         
-        for(int i = 0; i < this.hiddenTreasures.size(); i++){
-            this.discardHiddenTreasure(this.hiddenTreasures.get(i));
+        for(int i = myHiddenTreasures.size()-1; i >= 0; i--){
+            this.discardHiddenTreasure(myHiddenTreasures.get(i));
         } // for
     }                            // discardAllTreasures
     public boolean canISteal() {
@@ -313,6 +322,13 @@ public class Player {
             status = status + i+1 + this.visibleTreasures.get(i).toString() + "\n";
         } // for
 
+        if(this.pendingBadConsecuence != null){
+            System.out.println("Queda mal royo pendiente.");
+            System.out.println(this.pendingBadConsecuence.toString());
+        }
+        else{
+            System.out.println ("No hay mal royo pendiente.");
+        } // else
         return status;
     }                                      // Retrieve object status
 }
