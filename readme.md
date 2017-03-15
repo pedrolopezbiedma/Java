@@ -38,5 +38,13 @@ I have two versions of the game:
 
 - Napakalaki with UI (in development): This is the same game but I've developed a simple UI in order to make the game more attractive.
 
+--- How to play. ---
+
+If you want to play whether the plain version or the UI version of the game, you just need to download the folder with the code of the version tht you want.
+
+Once you've done it, open it in any Java IDE ( like for example NetBeans ) and execute it :)
+
+I hope you enjoy it!!!!
+
 
 
