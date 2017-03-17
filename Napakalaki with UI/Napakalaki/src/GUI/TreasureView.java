@@ -13,6 +13,7 @@ import napakalaki.Treasure;
 public class TreasureView extends javax.swing.JPanel {
 
     private Treasure treasureModel;
+    private boolean selected = false;
     /**
      * Creates new form TreasureView
      */
@@ -20,6 +21,10 @@ public class TreasureView extends javax.swing.JPanel {
         initComponents();
     }
     
+    /*
+    * Method that sets the treasure for the view.
+    * @param t Treasure to be set.
+    */
     public void setTreasure (Treasure t) {
   
         this.treasureModel = t;
@@ -27,7 +32,23 @@ public class TreasureView extends javax.swing.JPanel {
         this.treasureBonus.setText (Integer.toString(treasureModel.getBonus()));
         this.treasureType.setText (treasureModel.getType().toString());
         repaint();
-    } // setTreasure
+    }                         // setTreasure
+    
+    /*
+    * Method that retrieves if the treasure is selected by the end user.
+    * @return Boolean indicating if treasure is selected
+    */
+    public boolean getIsSelected(){
+        return this.selected;
+    }                                // getIsSelected
+    
+    /*
+    * Method that retrieves the treasure view.
+    * @return Treasure view.
+    */
+    public Treasure getTreasure(){
+        return this.treasureModel;
+    }                                 // getTreasure
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,6 +66,12 @@ public class TreasureView extends javax.swing.JPanel {
         treasureType = new javax.swing.JTextField();
         treasureBonus = new javax.swing.JTextField();
         jlabel4 = new javax.swing.JLabel();
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Name:");
 
@@ -103,6 +130,22 @@ public class TreasureView extends javax.swing.JPanel {
                 .addGap(82, 82, 82))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    /*
+    * Method to detect when end-user has clicked in the treasure or not and update the selected boolean.
+    */
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        if(this.selected == true){
+            selected = false;
+            setOpaque(this.selected);
+        }
+        else{
+            selected = true;
+            setOpaque(this.selected);
+        }
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

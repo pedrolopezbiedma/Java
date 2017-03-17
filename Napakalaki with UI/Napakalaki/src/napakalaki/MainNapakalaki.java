@@ -32,6 +32,7 @@ public class MainNapakalaki {
         // ***** Logic *****
         names = namesCapture.getNames();
         game.initGame(names);
+        napakalakiView.setNapakalaki(game);
         napakalakiView.setVisible(true);        
 
     } // Main

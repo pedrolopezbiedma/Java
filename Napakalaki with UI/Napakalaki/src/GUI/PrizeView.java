@@ -20,13 +20,18 @@ public class PrizeView extends javax.swing.JPanel {
         initComponents();
     }
 
+    /*
+    * Method that set the Prize for the view.
+    * @param p Prize to be set.
+    */
     public void setPrize(Prize p){
         this.prizeModel = p;
         this.prizeLevels.setText(Integer.toString(prizeModel.getLevel()));
         this.prizeTreasures.setText(Integer.toString(prizeModel.getTreasures()));
         repaint();
+        revalidate();
         
-    } // setPrize
+    }                                 // setPrize
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,20 +43,20 @@ public class PrizeView extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        prizeLevels = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        prizeTreasures = new javax.swing.JTextField();
+        prizeLevels = new javax.swing.JLabel();
+        prizeTreasures = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Prize View");
+        jLabel1.setText("Prize");
 
         jLabel2.setText("Levels Gained:");
 
-        prizeLevels.setText("levelsGained");
-
         jLabel3.setText("Treasures Gained:");
 
-        prizeTreasures.setText("treasuresGained");
+        prizeLevels.setText("prizeLevels");
+
+        prizeTreasures.setText("prizeTreasures");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,12 +71,12 @@ public class PrizeView extends javax.swing.JPanel {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(prizeLevels)
-                            .addComponent(prizeTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                            .addComponent(prizeLevels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(prizeTreasures, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(jLabel1)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,12 +86,12 @@ public class PrizeView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(prizeLevels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prizeLevels))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(prizeTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(9, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(prizeTreasures))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -95,7 +100,7 @@ public class PrizeView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField prizeLevels;
-    private javax.swing.JTextField prizeTreasures;
+    private javax.swing.JLabel prizeLevels;
+    private javax.swing.JLabel prizeTreasures;
     // End of variables declaration//GEN-END:variables
 }

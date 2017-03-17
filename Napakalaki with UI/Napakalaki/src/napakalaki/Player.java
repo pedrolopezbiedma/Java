@@ -439,6 +439,14 @@ public class Player {
     public Player getEnemy(){
         return this.enemy;
     }                                      // getEnemy
+    
+    /*
+    * Method that retrieves the pending BadConsecuence from the player.
+    * @return The pending BadConsecuence
+    */
+    public BadConsecuence getPendingBC(){
+        return this.pendingBadConsecuence;
+    }                          // getPendingBC
     @Override // TODO Mostrar lista de tesoros.
     public String toString(){
         String status;

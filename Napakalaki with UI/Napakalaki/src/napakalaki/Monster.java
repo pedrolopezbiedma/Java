@@ -30,7 +30,7 @@ public class Monster {
     * Methods that retrieves the monster name.
     * @return Monster name
     */
-    protected String getName(){
+    public String getName(){
         return this.name;
     }                                    // getName
     
@@ -38,7 +38,7 @@ public class Monster {
     * Method that retrieves monster level.
     * @return Monster level.
     */
-    protected int getCombatLvl(){
+    public int getCombatLvl(){
         return this.combatLevel;
     }                                  // getCombatLvl
     
@@ -46,7 +46,7 @@ public class Monster {
     * Method that retrieves the monster BadConsequence to be suffered if combt is lost.
     * @return Monster BadConsequence
     */
-    protected BadConsecuence getBadConsecuence(){
+    public BadConsecuence getBadConsecuence(){
         return this.badConsec;
     }                  // getBadConsuence
     
@@ -54,7 +54,7 @@ public class Monster {
     * Method that retrieves the levels gained if monster is beated.
     * @return Monster levels gained.
     */
-    protected int getLevelsGained(){
+    public int getLevelsGained(){
         return this.prize.getLevel();
     }                               // getLevelsGained
     
@@ -62,9 +62,17 @@ public class Monster {
     * Method that retrieves the treasures gained if monster is beated.
     * @return Monster treasures gained.
     */
-    protected int getTreasuresGained(){
+    public int getTreasuresGained(){
         return this.prize.getTreasures();
     }                            // getTreasuresGained
+    
+    /*
+    * Method that retrieves the prize from the monster.
+    * @return Prize from the monster
+    */
+    public Prize getPrize(){
+        return this.prize;
+    }                                       // getPrize
     @Override
     public String toString(){
         String status;

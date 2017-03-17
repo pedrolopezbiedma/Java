@@ -53,7 +53,7 @@ public class BadConsecuence {
     * Method that checks if BadConsequence is empty.
     * @return Boolean specifying if BadConsequence is empty.
     */
-    protected boolean isEmpty(){
+    public boolean isEmpty(){
         boolean isEmpty;
         if(this.nHiddenTreasures == 0 &&
             this.nVisibleTreasures == 0 ){

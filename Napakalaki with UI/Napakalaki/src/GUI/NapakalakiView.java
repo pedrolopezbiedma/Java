@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package GUI;
+import static java.lang.System.exit;
+import javax.swing.JOptionPane;
 import napakalaki.Napakalaki;
+import napakalaki.CombatResult;
 
 /**
  *
@@ -16,7 +19,35 @@ public class NapakalakiView extends javax.swing.JFrame {
     
     public void setNapakalaki(Napakalaki napa){
         this.napakalakiModel = napa;
-    }                    // setNapakalaki
+        
+        if(napa.getCurrentMonster() != null){
+            this.napakalakiCurrentMonster.setMonster(napa.getCurrentMonster());
+        } // if
+        
+        this.napakalakiCurrentPlayer.setPlayer(napa.getCurrentPlayer(), this);
+        this.napakalakiCurrentPlayer.setNapakalakiModel(napa);
+
+        this.napakalakiCurrentPlayer.getPBadConsequenceView().setVisible(false);
+        this.napakalakiCurrentPlayer.setStealButton(false);
+        meetTheMonster.setEnabled(true);
+        
+        update();
+        repaint();
+
+    }                   // setNapakalaki
+
+    public void endOfGame(){
+        JOptionPane.showMessageDialog(null, "¡FIN DEL JUEGO! \n Ha ganado " + this.napakalakiCurrentPlayer.playerModel.getName()+"!");
+        exit(0);
+    }
+    public void update(){
+        if(this.napakalakiCurrentPlayer.getPBadConsequenceView().getPendingBadConsequence() != null && 
+           this.napakalakiCurrentPlayer.getPBadConsequenceView().getPendingBadConsequence().isEmpty()){
+            nextTurn.setEnabled(true);
+        }
+        this.napakalakiCurrentPlayer.update();
+        repaint();
+    }                                          // update  
     /**
      * Creates new form NapakalakiView
      */
@@ -33,23 +64,157 @@ public class NapakalakiView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        napakalakiCurrentPlayer = new GUI.PlayerView();
+        jLabel1 = new javax.swing.JLabel();
+        napakalakiCurrentMonster = new GUI.MonsterView();
+        jLabel2 = new javax.swing.JLabel();
+        combatResult = new javax.swing.JLabel();
+        meetTheMonster = new javax.swing.JButton();
+        performCombat = new javax.swing.JButton();
+        nextTurn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        napakalakiCurrentPlayer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Napakalaki Game");
+
+        napakalakiCurrentMonster.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Combat Result:");
+
+        combatResult.setText("combatResult");
+
+        meetTheMonster.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        meetTheMonster.setText("Meet the Monster");
+        meetTheMonster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meetTheMonsterActionPerformed(evt);
+            }
+        });
+
+        performCombat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        performCombat.setText("Fight!!!");
+        performCombat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                performCombatActionPerformed(evt);
+            }
+        });
+
+        nextTurn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nextTurn.setText("Next Turn");
+        nextTurn.setActionCommand("");
+        nextTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextTurnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(napakalakiCurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(napakalakiCurrentMonster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(jLabel1)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(278, 278, 278)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combatResult, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(meetTheMonster, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(performCombat, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(nextTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(napakalakiCurrentPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(napakalakiCurrentMonster, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(combatResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meetTheMonster, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(performCombat, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nextTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnActionPerformed
+        // TODO add your handling code here:
+        boolean success = napakalakiModel.nextTurn();
+        if(success)
+            setNapakalaki(napakalakiModel);
+    }//GEN-LAST:event_nextTurnActionPerformed
+
+    private void meetTheMonsterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meetTheMonsterActionPerformed
+        // TODO add your handling code here:
+        this.napakalakiCurrentMonster.setVisible(true);
+        this.performCombat.setEnabled(true);
+        this.meetTheMonster.setEnabled(false);
+        this.napakalakiCurrentPlayer.setDiscardButtons(false);
+        this.napakalakiCurrentPlayer.setMakeTreasureVisibleButton(false);
+        this.napakalakiCurrentPlayer.setEnabled(false);
+        repaint();
+    }//GEN-LAST:event_meetTheMonsterActionPerformed
+
+    private void performCombatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_performCombatActionPerformed
+        // TODO add your handling code here:
+        CombatResult cr = napakalakiModel.developCombat();
+        setNapakalaki(napakalakiModel);
+        if(cr == CombatResult.WINGAME)
+            this.endOfGame();
+        
+        combatResult.setText(cr.toString());
+        this.napakalakiCurrentPlayer.update();
+        this.napakalakiCurrentPlayer.setMakeTreasureVisibleButton(true);
+        this.napakalakiCurrentPlayer.setDiscardButtons(true);
+        this.napakalakiCurrentPlayer.setStealButton(true);
+        this.napakalakiCurrentPlayer.setEnabled(true);
+        this.performCombat.setEnabled(false);
+        update();
+        repaint();
+    }//GEN-LAST:event_performCombatActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel combatResult;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton meetTheMonster;
+    private GUI.MonsterView napakalakiCurrentMonster;
+    private GUI.PlayerView napakalakiCurrentPlayer;
+    private javax.swing.JButton nextTurn;
+    private javax.swing.JButton performCombat;
     // End of variables declaration//GEN-END:variables
 }

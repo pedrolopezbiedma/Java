@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 package GUI;
+import java.awt.Component;
 import napakalaki.Player;
 import napakalaki.Treasure;
+import napakalaki.Napakalaki;
 import javax.swing.JPanel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +18,9 @@ import java.util.ArrayList;
  */
 public class PlayerView extends javax.swing.JPanel {
 
-    private Player playerModel;
+    public Player playerModel;
+    private Napakalaki napakalakiModel;
+    NapakalakiView napakalakiView;
     /**
      * Creates new form PlayerView
      */
@@ -39,19 +44,83 @@ public class PlayerView extends javax.swing.JPanel {
         aPanel.repaint();
         aPanel.revalidate();
     } // fillTreasurePanel
-    public void setPlayer(Player p){
-    
+    public void setPlayer(Player p, NapakalakiView napaView){
+        this.napakalakiView = napaView;
         this.playerModel = p;
         this.playerName.setText (playerModel.getName());
         this.playerLevel.setText (Integer.toString(playerModel.getLevels()));
         this.playerCombatLevel.setText (Integer.toString(playerModel.getCombatLevel()));
         this.playerEnemyName.setText(playerModel.getEnemy().getName());
+
+        if(p.getPendingBC()!=null){
+            this.playerPendingBC.setPendingBadConsequence(playerModel.getPendingBC());
+            this.playerPendingBC.setVisible(true);
+        }
+        else{
+            this.playerPendingBC.setVisible(false);
+        }
+
         this.fillTreasurePanel(visibleTreasures,playerModel.getVisibleTreasures());
-        this.fillTreasurePanel(hiddenTreasures,playerModel.getHiddenTreasures());
+        this.fillTreasurePanel(hiddenTreasures,playerModel.getHiddenTreasures());    
+        if(playerModel.getHiddenTreasures().isEmpty() && playerModel.getVisibleTreasures().isEmpty()){
+            discardTreasure.setEnabled(false);
+            discardAllTreasures.setEnabled(false);
+        } else{
+            discardTreasure.setEnabled(true);
+            discardAllTreasures.setEnabled(true);
+        }
+        
+        makeTreasureVisible.setEnabled(!playerModel.getHiddenTreasures().isEmpty());
+        stealTreasure.setEnabled(playerModel.canISteal());
+        
         repaint();
         revalidate();
-    }                              // setPlayer
+    }     // setPlayer
+    public void setNapakalakiModel(Napakalaki n){
+           this.napakalakiModel = n;
+    }
+    public GUI.PendingBCView getPBadConsequenceView() {
+        return this.playerPendingBC;
+    }
+    public void update(){
+        setPlayer(playerModel, napakalakiView);
+        repaint();
+    }    
+    public void setStealButton(boolean status){
+        if(status == true && playerModel.canISteal())
+            this.stealTreasure.setEnabled(true);
+        else
+            this.stealTreasure.setEnabled(false);
+    } // setStealButton
+    public void setDiscardButtons(boolean status){
+        this.discardTreasure.setEnabled(status);
+        this.discardAllTreasures.setEnabled(status);
+    }
+    public void setMakeTreasureVisibleButton(boolean status){
+        this.makeTreasureVisible.setEnabled(status);
+    }
     
+    private ArrayList<Treasure> getSelectedTreasures(JPanel aPanel) {
+
+        TreasureView tv;
+        ArrayList<Treasure> output = new ArrayList();
+        for (Component c : aPanel.getComponents()) {
+            tv = (TreasureView) c;
+            if ( tv.getIsSelected() )
+                output.add ( tv.getTreasure() );
+        }
+        return output;
+    }
+       
+    private ArrayList<Treasure> getAllTreasures(JPanel aPanel){
+        TreasureView tv;
+        ArrayList<Treasure> output = new ArrayList();
+        for (Component c : aPanel.getComponents()) {
+            tv = (TreasureView) c;
+            output.add(tv.getTreasure());
+        }
+        return output;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,13 +132,9 @@ public class PlayerView extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        playerName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        playerLevel = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        playerCombatLevel = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        playerEnemyName = new javax.swing.JTextField();
         visibleTreasures = new javax.swing.JPanel();
         hiddenTreasures = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -79,25 +144,22 @@ public class PlayerView extends javax.swing.JPanel {
         discardTreasure = new javax.swing.JButton();
         discardAllTreasures = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        playerName = new javax.swing.JLabel();
+        playerLevel = new javax.swing.JLabel();
+        playerCombatLevel = new javax.swing.JLabel();
+        playerEnemyName = new javax.swing.JLabel();
+        playerPendingBC = new GUI.PendingBCView();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Player View");
 
         jLabel2.setText("Name:");
 
-        playerName.setText("playerName");
-
         jLabel3.setText("Level:");
-
-        playerLevel.setText("playerLevel");
 
         jLabel4.setText("Combat Level:");
 
-        playerCombatLevel.setText("playerCombatLvl");
-
         jLabel5.setText("Enemy:");
-
-        playerEnemyName.setText("playerEnemyName");
 
         visibleTreasures.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -120,10 +182,25 @@ public class PlayerView extends javax.swing.JPanel {
 
         stealTreasure.setBackground(new java.awt.Color(0, 0, 0));
         stealTreasure.setText("Steal Treasure");
+        stealTreasure.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stealTreasureActionPerformed(evt);
+            }
+        });
 
         makeTreasureVisible.setText("Make Visible");
+        makeTreasureVisible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makeTreasureVisibleActionPerformed(evt);
+            }
+        });
 
         discardTreasure.setText("Discard Treasure");
+        discardTreasure.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discardTreasureActionPerformed(evt);
+            }
+        });
 
         discardAllTreasures.setText("Discard All Treasures");
         discardAllTreasures.addActionListener(new java.awt.event.ActionListener() {
@@ -135,40 +212,44 @@ public class PlayerView extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
         jLabel8.setText("Actions");
 
+        playerName.setText("playerName");
+
+        playerLevel.setText("playerLevel");
+
+        playerCombatLevel.setText("playerCombatLevel");
+
+        playerEnemyName.setText("playerEnemyName");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(63, 63, 63))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(visibleTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
+                        .addGap(164, 164, 164)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(playerCombatLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(playerLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(playerEnemyName, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(hiddenTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(hiddenTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(playerCombatLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                    .addComponent(playerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(playerLevel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(playerEnemyName, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(playerPendingBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(makeTreasureVisible, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(stealTreasure, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,11 +257,24 @@ public class PlayerView extends javax.swing.JPanel {
                     .addComponent(discardAllTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
             .addGroup(layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(78, 78, 78))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(3, 3, 3)))
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(visibleTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,23 +284,25 @@ public class PlayerView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(playerName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(playerLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(playerLevel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(playerCombatLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(playerCombatLevel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(playerEnemyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(playerEnemyName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(playerPendingBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(visibleTreasures, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -223,13 +319,49 @@ public class PlayerView extends javax.swing.JPanel {
                 .addComponent(discardTreasure)
                 .addGap(18, 18, 18)
                 .addComponent(discardAllTreasures, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void discardAllTreasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardAllTreasuresActionPerformed
         // TODO add your handling code here:
+        ArrayList<Treasure> selHidden = getAllTreasures(hiddenTreasures);
+        ArrayList<Treasure> selVisible = getAllTreasures(visibleTreasures);
+        this.napakalakiModel.discardHiddenTreasures(selHidden);
+        this.napakalakiModel.discardVisibleTreasures(selVisible);
+        setPlayer(this.napakalakiModel.getCurrentPlayer(),napakalakiView);
+        this.playerPendingBC.setPendingBadConsequence(playerModel.getPendingBC());
     }//GEN-LAST:event_discardAllTreasuresActionPerformed
+
+    private void makeTreasureVisibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeTreasureVisibleActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Treasure> selHidden = getSelectedTreasures(hiddenTreasures);
+        this.napakalakiModel.makeTreasuresVisible(selHidden);
+        setPlayer(this.napakalakiModel.getCurrentPlayer(),this.napakalakiView);
+    }//GEN-LAST:event_makeTreasureVisibleActionPerformed
+
+    private void discardTreasureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardTreasureActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Treasure> selHidden = getSelectedTreasures(hiddenTreasures);
+        ArrayList<Treasure> selVisible = getSelectedTreasures(visibleTreasures);
+        this.napakalakiModel.discardHiddenTreasures(selHidden);
+        this.napakalakiModel.discardVisibleTreasures(selVisible);
+        setPlayer(this.napakalakiModel.getCurrentPlayer(), this.napakalakiView);
+        napakalakiView.update();
+        this.playerPendingBC.setPendingBadConsequence(playerModel.getPendingBC());
+    }//GEN-LAST:event_discardTreasureActionPerformed
+
+    private void stealTreasureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stealTreasureActionPerformed
+        // TODO add your handling code here:
+        Treasure aTreasure = napakalakiModel.getCurrentPlayer().stealTreasure();
+        if(aTreasure == null){
+            JOptionPane.showMessageDialog(null, "No has podido robar nada!");
+        } else{
+            JOptionPane.showMessageDialog(null, "Has robado un tesoro!");
+        }
+        setPlayer(napakalakiModel.getCurrentPlayer(), napakalakiView);
+        stealTreasure.setEnabled(false);
+    }//GEN-LAST:event_stealTreasureActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -245,10 +377,11 @@ public class PlayerView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JButton makeTreasureVisible;
-    private javax.swing.JTextField playerCombatLevel;
-    private javax.swing.JTextField playerEnemyName;
-    private javax.swing.JTextField playerLevel;
-    private javax.swing.JTextField playerName;
+    private javax.swing.JLabel playerCombatLevel;
+    private javax.swing.JLabel playerEnemyName;
+    private javax.swing.JLabel playerLevel;
+    private javax.swing.JLabel playerName;
+    private GUI.PendingBCView playerPendingBC;
     private javax.swing.JButton stealTreasure;
     private javax.swing.JPanel visibleTreasures;
     // End of variables declaration//GEN-END:variables

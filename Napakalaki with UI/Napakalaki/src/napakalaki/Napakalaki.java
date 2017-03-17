@@ -118,7 +118,7 @@ public class Napakalaki {
     * Method that makes a list of treasures visible.
     * @param treasures Array with the treasures to be moved to the visible treasures array.
     */
-    protected void makeTreasuresVisible(ArrayList<Treasure> treasures){
+    public void makeTreasuresVisible(ArrayList<Treasure> treasures){
       for(int i = 0; i < treasures.size(); i++){
         this.currentPlayer.makeTreasureVisible(treasures.get(i));
       }   // for

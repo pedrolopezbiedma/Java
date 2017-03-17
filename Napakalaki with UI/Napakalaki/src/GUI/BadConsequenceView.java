@@ -10,29 +10,27 @@ import napakalaki.BadConsecuence;
  *
  * @author pjlopezb
  */
-public class BadConsequence extends javax.swing.JPanel {
+public class BadConsequenceView extends javax.swing.JPanel {
 
     private BadConsecuence bcModel;
     /**
      * Creates new form BadConsequence
      */
-    public BadConsequence() {
+    public BadConsequenceView() {
         initComponents();
     }
 
+    /*
+    * Setting the BadConsequence view
+    * @param bc BadConsequence to be set.
+    */
     public void setBadConsecuence(BadConsecuence bc){
         this.bcModel = bc;
         this.badConsName.setText(bcModel.getText());
-        /*this.badConsLevel.setText(Integer.toString(bcModel.getLevels()));
-        this.badConsVisTrea.setText(Integer.toString(bcModel.getNVisTreasures()));
-        this.badConsHidTrea.setText(Integer.toString(bcModel.getNHidTreasures()));
-        this.fillTreasurePanel(badConsSpecVisTrea,bcModel.getSpecVisTreasures());
-        this.fillTreasurePanel(badConsSpecHidTrea,bcModel.getSpecHidTreasures());*/
         repaint();
         revalidate();
 
-
-    } // setBadConsecuence
+    }              // setBadConsecuence
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,30 +41,26 @@ public class BadConsequence extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        badConsName = new javax.swing.JTextField();
+        badConsName = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Bad Consequence View");
+        jLabel1.setText("Bad Consequence");
 
-        jLabel2.setText("Name:");
-
-        badConsName.setText("bcName");
+        badConsName.setText("badConsName");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(91, 91, 91))
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(badConsName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(badConsName, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,17 +68,14 @@ public class BadConsequence extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(badConsName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(badConsName, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField badConsName;
+    private javax.swing.JLabel badConsName;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

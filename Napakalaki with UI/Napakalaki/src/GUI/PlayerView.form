@@ -16,46 +16,40 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="visibleTreasures" min="-2" pref="135" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="hiddenTreasures" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="playerCombatLevel" pref="0" max="32767" attributes="0"/>
+                                  <Component id="playerName" alignment="1" pref="84" max="32767" attributes="0"/>
+                                  <Component id="playerLevel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="playerEnemyName" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="playerPendingBC" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="playerCombatLevel" min="-2" pref="84" max="-2" attributes="0"/>
-                          <Component id="playerLevel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="playerName" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                          <Component id="playerEnemyName" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="hiddenTreasures" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="makeTreasureVisible" alignment="1" max="32767" attributes="0"/>
                   <Component id="stealTreasure" alignment="1" max="32767" attributes="0"/>
@@ -64,12 +58,31 @@
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="visibleTreasures" min="-2" pref="135" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -98,10 +111,12 @@
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="playerEnemyName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="playerPendingBC" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -121,7 +136,7 @@
               <Component id="discardTreasure" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="discardAllTreasures" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -140,19 +155,9 @@
         <Property name="text" type="java.lang.String" value="Name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="playerName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="playerName"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Level:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="playerLevel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="playerLevel"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -160,19 +165,9 @@
         <Property name="text" type="java.lang.String" value="Combat Level:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="playerCombatLevel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="playerCombatLvl"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enemy:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="playerEnemyName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="playerEnemyName"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="visibleTreasures">
@@ -225,16 +220,25 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Steal Treasure"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stealTreasureActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="makeTreasureVisible">
       <Properties>
         <Property name="text" type="java.lang.String" value="Make Visible"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makeTreasureVisibleActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="discardTreasure">
       <Properties>
         <Property name="text" type="java.lang.String" value="Discard Treasure"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="discardTreasureActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="discardAllTreasures">
       <Properties>
@@ -251,6 +255,28 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Actions"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="playerName">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="playerName"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="playerLevel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="playerLevel"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="playerCombatLevel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="playerCombatLevel"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="playerEnemyName">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="playerEnemyName"/>
+      </Properties>
+    </Component>
+    <Component class="GUI.PendingBCView" name="playerPendingBC">
     </Component>
   </SubComponents>
 </Form>
