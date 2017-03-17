@@ -248,7 +248,7 @@ public class Player {
     /*
     * Method that give the initial treasures to the player if dead or first turn.
     */
-    protected void initTreasures(){
+    public void initTreasures(){
       CardDealer dealer = CardDealer.getInstance();
       Dice dice = Dice.getInstance();
       Treasure treasure;
