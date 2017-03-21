@@ -24,36 +24,32 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="374" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="892" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <Component id="napakalakiCurrentPlayer" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="combatResult" min="-2" pref="250" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="performCombat" min="-2" pref="135" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nextTurn" min="-2" pref="135" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="meetTheMonster" min="-2" pref="135" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="napakalakiCurrentMonster" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="meetTheMonster" min="-2" pref="135" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="performCombat" min="-2" pref="135" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="nextTurn" min="-2" pref="135" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="napakalakiCurrentPlayer" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="napakalakiCurrentMonster" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="combatResult" min="-2" pref="250" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,26 +57,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meetTheMonster" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="performCombat" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="nextTurn" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="combatResult" min="-2" pref="65" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="napakalakiCurrentMonster" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="meetTheMonster" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="performCombat" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="nextTurn" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="27" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="combatResult" min="-2" pref="72" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="napakalakiCurrentPlayer" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="napakalakiCurrentMonster" min="-2" max="-2" attributes="0"/>
+                  <Component id="napakalakiCurrentPlayer" min="-2" pref="700" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,7 +97,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="combatResult">
       <Properties>
-        <Property name="text" type="java.lang.String" value="combatResult"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>
@@ -146,22 +138,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextTurnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="GUI.MonsterView" name="napakalakiCurrentMonster">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Game Actions"/>
+        <Property name="text" type="java.lang.String" value="Game Actions:"/>
       </Properties>
+    </Component>
+    <Component class="GUI.MonsterView" name="napakalakiCurrentMonster">
     </Component>
     <Component class="GUI.PlayerView" name="napakalakiCurrentPlayer">
     </Component>
