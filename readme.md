@@ -36,7 +36,7 @@ I have two versions of the game:
 
 - Plain Napakalaki: This is the plain version of the game where a tester interface is used to play. Players will be able to use several commands from a menu in order to perform each action needed in the game.
 
-- Napakalaki with UI (in development): This is the same game but I've developed a simple UI in order to make the game more attractive.
+- Napakalaki with UI: This is the same game but I've developed a simple UI in order to make the game more attractive.
 
 --- How to play. ---
 
