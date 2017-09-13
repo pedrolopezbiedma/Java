@@ -15,12 +15,52 @@ import java.util.Random;
 public class Sudoku {
     
     // Class attributes
-    private int[][] board = new int[9][9];
+    private Cell[][] board = new Cell[9][9];
     
-    // Class Methods
-    Sudoku(){
-        this.board = new int [9][9];
-    } // Constructor
+    // Private Methods
+    private boolean checkRow(int row, int val){
+    	boolean detected = false;
+    	for(int i = 0; i < 8 && detected == false; i++){
+    		if( this.board[row][i].getValue() == val){
+    			detected = true;
+    		} // if
+    	} // for
+    	
+    	return detected;
+    } // checkRow.
+    private boolean checkColumn(int col, int val){
+    	boolean detected = false;
+    	for(int i = 0; i < 8 && detected == false; i++){
+    		if( this.board[i][col].getValue() == val){
+    			detected = true;
+    		} // if
+    	} // for
+    	
+    	return detected;
+    } // checkColumn.
+    private boolean checkSquare(int row, int col, int val){
+    	boolean detected = false;
+    	int squareRow, squareCol;
+    	squareRow = (row / 3) * 3;
+    	squareCol = (col / 3) * 3;
+    	
+    	for(int i = squareRow; i < squareRow+3 && detected == false ; i++){
+    		for(int j = squareCol; j < squareCol+3 && detected == false; j++){
+        		if( this.board[i][j].getValue() == val){
+        			detected = true;    			
+        		} // if
+    		} // for
+    	} // for
+    	
+    	return detected;
+    } // checkSquare	
+    
+    // Constructor & Additional Methods
+    Sudoku(int level){
+        this.board = new Cell[9][9];
+        this.sudokuGenerator(level);
+        
+    } // Constructor por defecto.
     private ArrayList<Integer> generateRandomNumbers(){
         
         ArrayList<Integer> randomNumbers = new ArrayList();
@@ -47,138 +87,206 @@ public class Sudoku {
         return randomNumbers;
         
     } // generateRandomNumbers 
-    public void sudokuGenerator(){
+    public void sudokuGenerator(int level){
         int index;
         ArrayList<Integer> randomNumbers;
          
         // Generamos un vector con numeros aleatorios entre 1 y 9.
         randomNumbers = generateRandomNumbers();
         
-        System.out.println("Estoy en sudoku Generator");
+        for(int i = 0; i < 9; i++){
+        	for( int j = 0; j < 9; j++){
+        		this.board[i][j] = new Cell();
+        	}
+        }
+        
         index = 0;
         for(int i = 0; i <= 2; i++){
             for(int j = 0; j <= 2; j++){
-                board[i][j] = randomNumbers.get(index);
+                this.board[i][j].setValue(randomNumbers.get(index));
                 index++;
             } // for
         } // for
-        System.out.println("Termino la primera celda de sudoku Generator");
 
         /*Se rellenan los dos cuadros que quedan de arriba*/
-        board[1][3]=board[0][0];
-        board[1][4]=board[0][1];
-        board[1][5]=board[0][2];
-
-        board[2][6]=board[0][0];
-        board[2][7]=board[0][1];
-        board[2][8]=board[0][2];
-
-        board[2][3]=board[1][0];
-        board[2][4]=board[1][1];
-        board[2][5]=board[1][2];
-
-        board[0][6]=board[1][0];
-        board[0][7]=board[1][1];
-        board[0][8]=board[1][2];
-
-        board[0][3]=board[2][0];
-        board[0][4]=board[2][1];
-        board[0][5]=board[2][2];
-
-        board[1][6]=board[2][0];
-        board[1][7]=board[2][1];
-        board[1][8]=board[2][2];
-
+        this.board[1][3].setValue(this.board[0][0].getValue());
+        this.board[1][4].setValue(this.board[0][1].getValue());
+        this.board[1][5].setValue(this.board[0][2].getValue());
+        this.board[2][6].setValue(this.board[0][0].getValue());
+        this.board[2][7].setValue(this.board[0][1].getValue());
+        this.board[2][8].setValue(this.board[0][2].getValue());
+        this.board[2][3].setValue(this.board[1][0].getValue());
+        this.board[2][4].setValue(this.board[1][1].getValue());
+        this.board[2][5].setValue(this.board[1][2].getValue());
+        this.board[0][6].setValue(this.board[1][0].getValue());
+        this.board[0][7].setValue(this.board[1][1].getValue());
+        this.board[0][8].setValue(this.board[1][2].getValue());
+        this.board[0][3].setValue(this.board[2][0].getValue());
+        this.board[0][4].setValue(this.board[2][1].getValue());
+        this.board[0][5].setValue(this.board[2][2].getValue());
+        this.board[1][6].setValue(this.board[2][0].getValue());
+        this.board[1][7].setValue(this.board[2][1].getValue());
+        this.board[1][8].setValue(this.board[2][2].getValue());
+        
         /*Se rellenan los cuadros de la izquierda*/
-        board[3][1]=board[0][0];
-        board[4][1]=board[1][0];
-        board[5][1]=board[2][0];
-
-        board[6][2]=board[0][0];
-        board[7][2]=board[1][0];
-        board[8][2]=board[2][0];
-
-        board[3][2]=board[0][1];
-        board[4][2]=board[1][1];
-        board[5][2]=board[2][1];
-
-        board[6][0]=board[0][1];
-        board[7][0]=board[1][1];
-        board[8][0]=board[2][1];
-
-        board[3][0]=board[0][2];
-        board[4][0]=board[1][2];
-        board[5][0]=board[2][2];
-
-        board[6][1]=board[0][2];
-        board[7][1]=board[1][2];
-        board[8][1]=board[2][2];
+        this.board[3][1].setValue(this.board[0][0].getValue());
+        this.board[4][1].setValue(this.board[1][0].getValue());
+        this.board[5][1].setValue(this.board[2][0].getValue());
+        this.board[6][2].setValue(this.board[0][0].getValue());
+        this.board[7][2].setValue(this.board[1][0].getValue());
+        this.board[8][2].setValue(this.board[2][0].getValue());
+        this.board[3][2].setValue(this.board[0][1].getValue());
+        this.board[4][2].setValue(this.board[1][1].getValue());
+        this.board[5][2].setValue(this.board[2][1].getValue());
+        this.board[6][0].setValue(this.board[0][1].getValue());
+        this.board[7][0].setValue(this.board[1][1].getValue());
+        this.board[8][0].setValue(this.board[2][1].getValue());
+        this.board[3][0].setValue(this.board[0][2].getValue());
+        this.board[4][0].setValue(this.board[1][2].getValue());
+        this.board[5][0].setValue(this.board[2][2].getValue());
+        this.board[6][1].setValue(this.board[0][2].getValue());
+        this.board[7][1].setValue(this.board[1][2].getValue());
+        this.board[8][1].setValue(this.board[2][2].getValue());
 
         /* Se rellena el cuadro central y derecho-centro*/
-        board[3][3]=board[5][0];
-        board[3][4]=board[5][1];
-        board[3][5]=board[5][2];
-
-        board[4][6]=board[5][0];
-        board[4][7]=board[5][1];
-        board[4][8]=board[5][2];
-
-        board[5][3]=board[4][0];
-        board[5][4]=board[4][1];
-        board[5][5]=board[4][2];
-
-        board[3][6]=board[4][0];
-        board[3][7]=board[4][1];
-        board[3][8]=board[4][2];
-
-        board[5][6]=board[3][0];
-        board[5][7]=board[3][1];
-        board[5][8]=board[3][2];
-
-        board[4][3]=board[3][0];
-        board[4][4]=board[3][1];
-        board[4][5]=board[3][2];
+        this.board[3][3].setValue(this.board[5][0].getValue());
+        this.board[3][4].setValue(this.board[5][1].getValue());
+        this.board[3][5].setValue(this.board[5][2].getValue());
+        this.board[4][6].setValue(this.board[5][0].getValue());
+        this.board[4][7].setValue(this.board[5][1].getValue());
+        this.board[4][8].setValue(this.board[5][2].getValue());
+        this.board[5][3].setValue(this.board[4][0].getValue());
+        this.board[5][4].setValue(this.board[4][1].getValue());
+        this.board[5][5].setValue(this.board[4][2].getValue());
+        this.board[3][6].setValue(this.board[4][0].getValue());
+        this.board[3][7].setValue(this.board[4][1].getValue());
+        this.board[3][8].setValue(this.board[4][2].getValue());
+        this.board[5][6].setValue(this.board[3][0].getValue());
+        this.board[5][7].setValue(this.board[3][1].getValue());
+        this.board[5][8].setValue(this.board[3][2].getValue());
+        this.board[4][3].setValue(this.board[3][0].getValue());
+        this.board[4][4].setValue(this.board[3][1].getValue());
+        this.board[4][5].setValue(this.board[3][2].getValue());
 
         /* Se rellena el cuadro central y derecho-centro*/
-        board[6][3]=board[8][0];
-        board[6][4]=board[8][1];
-        board[6][5]=board[8][2];
+        this.board[6][3].setValue(this.board[8][0].getValue());
+        this.board[6][4].setValue(this.board[8][1].getValue());
+        this.board[6][5].setValue(this.board[8][2].getValue());
+        this.board[7][6].setValue(this.board[8][0].getValue());
+        this.board[7][7].setValue(this.board[8][1].getValue());
+        this.board[7][8].setValue(this.board[8][2].getValue());
+        this.board[8][3].setValue(this.board[7][0].getValue());
+        this.board[8][4].setValue(this.board[7][1].getValue());
+        this.board[8][5].setValue(this.board[7][2].getValue());
+        this.board[6][6].setValue(this.board[7][0].getValue());
+        this.board[6][7].setValue(this.board[7][1].getValue());
+        this.board[6][8].setValue(this.board[7][2].getValue());
+        this.board[8][6].setValue(this.board[6][0].getValue());
+        this.board[8][7].setValue(this.board[6][1].getValue());
+        this.board[8][8].setValue(this.board[6][2].getValue());
+        this.board[7][3].setValue(this.board[6][0].getValue());
+        this.board[7][4].setValue(this.board[6][1].getValue());
+        this.board[7][5].setValue(this.board[6][2].getValue());
 
-        board[7][6]=board[8][0];
-        board[7][7]=board[8][1];
-        board[7][8]=board[8][2];
-
-        board[8][3]=board[7][0];
-        board[8][4]=board[7][1];
-        board[8][5]=board[7][2];
-
-        board[6][6]=board[7][0];
-        board[6][7]=board[7][1];
-        board[6][8]=board[7][2];
-
-        board[8][6]=board[6][0];
-        board[8][7]=board[6][1];
-        board[8][8]=board[6][2];
-
-        board[7][3]=board[6][0];
-        board[7][4]=board[6][1];
-        board[7][5]=board[6][2];
+        System.out.println("El nivel es:" + level);
+        
+        // Esconder aqui los valores aleatorios dependiendo del nivel. TOREVIEW
+        for(int i = 0 ; i < 8; i++){
+        	for(int j = 0; j < 8; j++){
+        		if( ((Math.random()*81+1) < level) ){
+        			this.board[i][j].setValue(0);
+        		}
+        		else{
+        			this.board[i][j].setFix();
+        		}
+        	} // for
+        } // for
         
     } // sudokuGenerator
-    public void showBoard(int level){
+    
+    // Class Methods
+    protected boolean setCellValue( int row, int col, int value){
+    	boolean done = false;
+    	if( this.board[row][col].isEmpty() == true ){
+    		done = this.board[row][col].setValue(value);
+    		
+    		if(done == true){
+    			this.board[row][col].setFix();
+    		}
+    	} // if
+    	
+    	return done;
+    } // setCellValue
+    
+    protected void setCellFix( int row, int col ){
+    	this.board[row][col].setFix();
+    }
+    protected void deleteCellValue( int row, int col ){
+    	this.board[row][col].deleteValue();
+    	
+    } // deleteCellValue
+    protected boolean gameFinished(){
+    	boolean finished = true;
+    	
+    	for(int i = 0; i < 9; i++){
+    		for(int j = 0; j < 9; j++){
+    			if( this.board[i][j].isFix() != true){
+    				finished = false;	
+    			} // if
+    		} // for
+    	} // for
+    	
+    	return finished;
+    } // gameFinished
+    protected ArrayList<Integer> getOptions(int row, int col){
+    	return this.board[row][col].getValues();
+    	
+    } // getOptions
+    protected boolean newOption(int row, int col, int val){
+    	boolean done = this.board[row][col].newOption(val);
+    	return done;
+    	
+    } // newOption
+    protected boolean deleteOption( int row, int col, int val){
+    	boolean done = this.board[row][col].deleteOption(val);
+    	return done;
+    	
+    } // deleteOption
+    protected Cell getCell(int row, int col){
+    	return this.board[row][col];
+    	
+    }    
+    protected boolean fitsGame(int row, int col, int val){
+    	if( this.checkRow(row, val) == false){
+    		if( this.checkColumn(col, val) == false){
+    			if( this.checkSquare(row, col, val) == false){
+            		return true;    				
+    			} // if
+    		} // if
+    	} // if
+    	return false;
 
+    } // fitsGame 
+    public void showBoard(){
         String ANSI_RED = "\u001B[31m";
         String ANSI_BLUE = "\u001B[34m";
         String ANSI_RESET = "\u001B[0m";
+        String ANSI_GREEN = "\u001B[32m";
 
         for(int i = 0; i <= 8; i++){
             for(int j = 0; j <= 8 ; j++){
-                if( ((Math.random()*81+1) > level) ){
-                    System.out.print(" " + board[i][j] + " ");
+            	if( this.board[i][j].getValue() != '_'){
+            		if(this.board[i][j].isFix() == true){
+            			System.out.print(ANSI_GREEN + " " + this.board[i][j].showCell() + " " + ANSI_RESET);
+            		} // if
+            		else{
+            			System.out.print(" " + this.board[i][j].showCell() + " ");
+            		}
+            	} // if
+            	else{
+                    System.out.print(ANSI_RED + " " + this.board[i][j].showCell() + " " + ANSI_RESET);
                 }
-                else{
-                    System.out.print(ANSI_RED + " " + "#" + " " + ANSI_RESET);
-                }
+            	
                 if(j==2 || j==5 || j==8){
                     System.out.print(ANSI_BLUE + " | " + ANSI_RESET);
                 } // if
@@ -189,27 +297,8 @@ public class Sudoku {
             } // if
             System.out.print("\n");
         } // for
-        
-        
-        /*for (int i=0;i<=8;i++) {
-                for (int j=0;j<=8;j++){
-                    if( ((Math.random()*81+1) > level) ){
-                    System.out.println("%i",board[i][j]);
-                    System.out.println(board[i][j]);
-                    } // if
-                    else{
-                        System.out.println("#");
-                    } // else
-                    if(j==2 || j==5 || j==8){
-                        System.out.println("    ");
-                    } // if
-                } // for
-            if(i==2 || i==5 || i==8){
-                System.out.println("\n\n");
-            } // if
-            System.out.println("\n");
-        } // for
-        */
-        System.out.println("Voy a salir del showBoard");
+
     } // showBoard
-}
+
+} // Sudoku
+
