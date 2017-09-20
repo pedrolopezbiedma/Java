@@ -7,7 +7,7 @@ public class Cell {
 	private int value;
 	private ArrayList<Integer> values = new ArrayList<Integer>(9);
 	private boolean fix;
-	// Si una celda no esta vacía, entonces el conjunto de opciones es vacio.
+	// Si una celda no esta vacï¿½a, entonces el conjunto de opciones es vacio.
 	
 	// Class Methods
 	Cell( ){
@@ -53,9 +53,7 @@ public class Cell {
 	
 	protected void setFix(){
 		this.fix = true;
-		System.out.println( "Voy a hacer el clear.");
 		this.values.clear();
-		System.out.println( "El tamaño de las opciones es" + this.values.size());
 		
 	} // setFix
 	

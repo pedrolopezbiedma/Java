@@ -189,16 +189,17 @@ public class Sudoku {
         this.board[7][5].setValue(this.board[6][2].getValue());
 
         System.out.println("El nivel es:" + level);
-        
+
         // Esconder aqui los valores aleatorios dependiendo del nivel. TOREVIEW
         for(int i = 0 ; i < 8; i++){
         	for(int j = 0; j < 8; j++){
-        		if( ((Math.random()*81+1) < level) ){
-        			this.board[i][j].setValue(0);
-        		}
-        		else{
-        			this.board[i][j].setFix();
-        		}
+                    if( ((Math.random()*81+1) > level) ){
+                            this.board[i][j].setFix();
+
+                    }
+                    else{
+                            this.board[i][j].setValue(0);
+                    }
         	} // for
         } // for
         
