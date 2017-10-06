@@ -23,8 +23,7 @@ public class Game {
     	int level,row, col, value, option = 0;
     	boolean done, finished = false, fits;
     	ArrayList<Integer> array = new ArrayList();
-        // TODO code application logic here
-    	
+
     	// ***** Creating Sudoku's board *****
         System.out.println( "***** Por favor, introduzca la dificultad deseada para el Sudoku. *****");
         level = in.nextInt();
@@ -51,14 +50,14 @@ public class Game {
             option = in.nextInt();
             
             switch(option){
-            // ***** Añadir una opcion *****
-            case 1: System.out.println( "Introduzca el valor de la fila a la que quiere añadir un valor. [1-9]");
+            // ***** Aï¿½adir una opcion *****
+            case 1: System.out.println( "Introduzca el valor de la fila a la que quiere aï¿½adir un valor. [1-9]");
             		row = in.nextInt();
             		row = row-1;
-            		System.out.println( "Introduzca el valor de la columna a la que quiere añadir un valor. [1-9]");
+            		System.out.println( "Introduzca el valor de la columna a la que quiere aï¿½adir un valor. [1-9]");
             		col = in.nextInt();
             		col = col-1;
-            		System.out.println( "Introduzca el valor que quiere añadir.");
+            		System.out.println( "Introduzca el valor que quiere aï¿½adir.");
             		value = in.nextInt();
             		
             		fits = board.fitsGame(row, col, value);
@@ -66,10 +65,10 @@ public class Game {
 	            		done = board.newOption(row, col, value);           		
 	            		
 	            		if(done == true){
-	                		System.out.println( "Opcion añadida correctamente.");            			
+	                		System.out.println( "Opcion aï¿½adida correctamente.");            			
 	            		} // if
 	            		else{
-	            			System.out.println( "La opcion no se ha podido añadir.");            			
+	            			System.out.println( "La opcion no se ha podido aï¿½adir.");            			
 	            		} // else
             		} // if
             		else{

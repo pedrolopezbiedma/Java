@@ -8,16 +8,24 @@ package sudoku;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 /**
  *
  * @author PedroL
+ * @description Class that handle the sudoku's board behavior.
  */
 public class Sudoku {
     
-    // Class attributes
+    // ***** Class attributes *****
     private Cell[][] board = new Cell[9][9];
     
-    // Private Methods
+    // ***** Private Methods *****
+    /*
+    * Method that checks if a value fits in a row according to the game rules.
+    * @param row Row that will be checked.
+    * @param val Value that will be checked.
+    * @return Boolean indicating if the value fits in the row.
+    */
     private boolean checkRow(int row, int val){
     	boolean detected = false;
     	for(int i = 0; i < 8 && detected == false; i++){
@@ -28,6 +36,13 @@ public class Sudoku {
     	
     	return detected;
     } // checkRow.
+    
+    /*
+    * Method that checks if a value fits in a column according to the game rules.
+    * @param col Column that will be checked.
+    * @param val Value that will be checked.
+    * @return Boolean indicating if the value fits in the column.
+    */    
     private boolean checkColumn(int col, int val){
     	boolean detected = false;
     	for(int i = 0; i < 8 && detected == false; i++){
@@ -38,6 +53,14 @@ public class Sudoku {
     	
     	return detected;
     } // checkColumn.
+    
+    /*
+    * Method that checks if a value fits in a square according to the game rules.
+    * @param row Row from the square that will be checked.
+    * @param col Column from the square that will be checked.
+    * @param val Value that will be checked.
+    * @return Boolean indicating if the value fits in the square.
+    */
     private boolean checkSquare(int row, int col, int val){
     	boolean detected = false;
     	int squareRow, squareCol;
@@ -55,12 +78,17 @@ public class Sudoku {
     	return detected;
     } // checkSquare	
     
-    // Constructor & Additional Methods
+    // ***** Constructor & Additional Methods *****
     Sudoku(int level){
         this.board = new Cell[9][9];
         this.sudokuGenerator(level);
         
-    } // Constructor por defecto.
+    } // Default Constructor.
+    
+    /*
+    * Method that generates an array of random numbers.
+    * @return Array of random numbers.
+    */
     private ArrayList<Integer> generateRandomNumbers(){
         
         ArrayList<Integer> randomNumbers = new ArrayList();
@@ -69,29 +97,25 @@ public class Sudoku {
            numbers.add(i);
         }
 
-        // Instanciamos la clase Random
         Random random = new Random();
 
-        // Mientras queden cartas en el mazo (en la lista de numbers)
         while (numbers.size()>=1){
-           // Elegimos un índice al azar, entre 0 y el número de cartas que quedan por sacar
            int randomIndex = random.nextInt(numbers.size());
-
-           // Damos la carta al jugador (sacamos el número por pantalla)
-           //System.out.println("Not Repeated Random Number "+numbers.get(randomIndex));
            randomNumbers.add(numbers.get(randomIndex));
-
-           // Y eliminamos la carta del mazo (la borramos de la lista)
            numbers.remove(randomIndex);
         }
         return randomNumbers;
         
     } // generateRandomNumbers 
+    
+    /*
+    * Method that creates the sudoku board.
+    * @param level Level of the sudoku board ( number of cells hidden at the start of the game ).
+    */
     public void sudokuGenerator(int level){
         int index;
         ArrayList<Integer> randomNumbers;
-         
-        // Generamos un vector con numeros aleatorios entre 1 y 9.
+
         randomNumbers = generateRandomNumbers();
         
         for(int i = 0; i < 9; i++){
@@ -108,7 +132,6 @@ public class Sudoku {
             } // for
         } // for
 
-        /*Se rellenan los dos cuadros que quedan de arriba*/
         this.board[1][3].setValue(this.board[0][0].getValue());
         this.board[1][4].setValue(this.board[0][1].getValue());
         this.board[1][5].setValue(this.board[0][2].getValue());
@@ -128,7 +151,6 @@ public class Sudoku {
         this.board[1][7].setValue(this.board[2][1].getValue());
         this.board[1][8].setValue(this.board[2][2].getValue());
         
-        /*Se rellenan los cuadros de la izquierda*/
         this.board[3][1].setValue(this.board[0][0].getValue());
         this.board[4][1].setValue(this.board[1][0].getValue());
         this.board[5][1].setValue(this.board[2][0].getValue());
@@ -148,7 +170,6 @@ public class Sudoku {
         this.board[7][1].setValue(this.board[1][2].getValue());
         this.board[8][1].setValue(this.board[2][2].getValue());
 
-        /* Se rellena el cuadro central y derecho-centro*/
         this.board[3][3].setValue(this.board[5][0].getValue());
         this.board[3][4].setValue(this.board[5][1].getValue());
         this.board[3][5].setValue(this.board[5][2].getValue());
@@ -168,7 +189,6 @@ public class Sudoku {
         this.board[4][4].setValue(this.board[3][1].getValue());
         this.board[4][5].setValue(this.board[3][2].getValue());
 
-        /* Se rellena el cuadro central y derecho-centro*/
         this.board[6][3].setValue(this.board[8][0].getValue());
         this.board[6][4].setValue(this.board[8][1].getValue());
         this.board[6][5].setValue(this.board[8][2].getValue());
@@ -188,9 +208,6 @@ public class Sudoku {
         this.board[7][4].setValue(this.board[6][1].getValue());
         this.board[7][5].setValue(this.board[6][2].getValue());
 
-        System.out.println("El nivel es:" + level);
-
-        // Esconder aqui los valores aleatorios dependiendo del nivel. TOREVIEW
         for(int i = 0 ; i < 8; i++){
         	for(int j = 0; j < 8; j++){
                     if( ((Math.random()*81+1) > level) ){
@@ -205,7 +222,14 @@ public class Sudoku {
         
     } // sudokuGenerator
     
-    // Class Methods
+    // ***** Class Methods *****
+    /*
+    * Method that set the value for a board Cell.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @param value Value to be set to the Cell.
+    * @return Boolean indicating if the value has been set or not.
+    */
     protected boolean setCellValue( int row, int col, int value){
     	boolean done = false;
     	if( this.board[row][col].isEmpty() == true ){
@@ -219,13 +243,30 @@ public class Sudoku {
     	return done;
     } // setCellValue
     
+    /*
+    * Method that sets the value for a board Cell fix.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    */
     protected void setCellFix( int row, int col ){
     	this.board[row][col].setFix();
-    }
+    } // setCellFix
+    
+    /*
+    * Method that delete the value from a board Cell.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @return Boolean indicating if the value has been deleted or not.
+    */
     protected void deleteCellValue( int row, int col ){
     	this.board[row][col].deleteValue();
     	
     } // deleteCellValue
+    
+    /*
+    * Method that checks if the game is finished or not.
+    * @return Boolean indicating if the game is finished or not.
+    */
     protected boolean gameFinished(){
     	boolean finished = true;
     	
@@ -239,24 +280,62 @@ public class Sudoku {
     	
     	return finished;
     } // gameFinished
+    
+    /*
+    * Method that retrieves the possible option list from a Cell.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @return Array with the Cell's possible options.
+    */
     protected ArrayList<Integer> getOptions(int row, int col){
     	return this.board[row][col].getValues();
     	
     } // getOptions
+    
+    /*
+    * Method that includes a new option in the Cell's possible options list.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @param val Value to be included in the list.
+    * @return Boolean indicating if the new option has been included or not.
+    */
     protected boolean newOption(int row, int col, int val){
     	boolean done = this.board[row][col].newOption(val);
     	return done;
     	
     } // newOption
+    
+    /*
+    * Method that deletes an option from Cell's posible options list.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @param val Value to be deleted.
+    * @return Boolean indicating if the value has been removed from the list.
+    */
     protected boolean deleteOption( int row, int col, int val){
     	boolean done = this.board[row][col].deleteOption(val);
     	return done;
     	
     } // deleteOption
+    
+    /*
+    * Method that retrieves a Cell from the board.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @return Cell from the board.
+    */
     protected Cell getCell(int row, int col){
     	return this.board[row][col];
     	
-    }    
+    } // getCell
+    
+    /*
+    * Method that checks if a value fits in a Cell according to the game rules.
+    * @param row Row where the Cell is.
+    * @param col Column where the Cell is.
+    * @param val Value to be checked.
+    * @return Boolean indicating the value fits in that Cell or not.
+    */
     protected boolean fitsGame(int row, int col, int val){
     	if( this.checkRow(row, val) == false){
     		if( this.checkColumn(col, val) == false){
@@ -268,6 +347,10 @@ public class Sudoku {
     	return false;
 
     } // fitsGame 
+    
+    /*
+    * Method that paints the sudoku's board.
+    */
     public void showBoard(){
         String ANSI_RED = "\u001B[31m";
         String ANSI_BLUE = "\u001B[34m";
@@ -298,7 +381,6 @@ public class Sudoku {
             } // if
             System.out.print("\n");
         } // for
-
     } // showBoard
 
 } // Sudoku
